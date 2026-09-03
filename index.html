@@ -23,6 +23,9 @@
   img { max-width: 100%; }
   #site { transform-origin: top left; }
   #shell { overflow: hidden; }
+  /* Page still scrolls; the scrollbar itself is hidden. */
+  html { scrollbar-width: none; -ms-overflow-style: none; }
+  html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
 </style>
 </head>
 <body>
