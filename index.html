@@ -24,6 +24,9 @@
   #site { transform-origin: top left; }
   #shell { overflow: hidden; }
   .cta, .cta:hover { display: inline-block; color: #FFFFFF; text-decoration: none; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  #pricing { scroll-margin-top: 40px; }
   /* Page still scrolls; the scrollbar itself is hidden. */
   html { scrollbar-width: none; -ms-overflow-style: none; }
   html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
@@ -47,7 +50,7 @@
         <div style="font-size: 34px; font-weight: 600; letter-spacing: -.01em; color: #B8B4D9;">You created the category.</div>
         <div style="font-size: 92px; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: #FFFFFF; white-space: nowrap;">Claim it with <span style="color: #FF2E85;">a book.</span></div>
         <div style="font-size: 25px; font-weight: 500; line-height: 1.45; color: #C9C5E4; max-width: 720px;">Turn your category expertise into a book you can hand someone in 60 days</div>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 26px; margin-top: 8px;"><a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 18px 36px; background: #E91E75; border-radius: 999px; align-self: center;">Claim Your Category</a>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 26px; margin-top: 8px;"><a class="cta" href="#pricing" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 18px 36px; background: #E91E75; border-radius: 999px; align-self: center;">Claim Your Category</a>
         </div>
       </div>
     </div>
@@ -64,7 +67,7 @@
             <span style="font-size: 12px; font-weight: 700; letter-spacing: .26em; color: #FF2E85; white-space: nowrap;">THE LAW</span>
             <span style="font-size: 19px; font-weight: 600; line-height: 1.45; color: #FFFFFF;">You can't be the authority on a category you haven't authored.</span>
           </div>
-          <a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 18px 36px; background: #E91E75; border-radius: 999px; align-self: flex-start; margin-top: 14px;">Claim Your Category</a>
+          <a class="cta" href="#pricing" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 18px 36px; background: #E91E75; border-radius: 999px; align-self: flex-start; margin-top: 14px;">Claim Your Category</a>
         </div>
       </div>
     </div>
@@ -137,7 +140,7 @@
           </div>
         </div>
 
-        <a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 18px 36px; background: #E91E75; border-radius: 999px; align-self: flex-start;">Claim Your Category</a>
+        <a class="cta" href="#pricing" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 18px 36px; background: #E91E75; border-radius: 999px; align-self: flex-start;">Claim Your Category</a>
       </div>
     </div>
 
@@ -168,7 +171,7 @@
             <div style="font-size: 26px; font-weight: 700; line-height: 1.45; color: #141A54;">If it works in adjuster licensing with no famous name on the cover, it isn't about the author. <span style="color: #E2006A;">It's about the claim.</span></div>
           </div>
 
-          <a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 18px 36px; background: #E2006A; border-radius: 999px; align-self: flex-start; margin-top: 6px;">Claim Your Category</a>
+          <a class="cta" href="#pricing" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 18px 36px; background: #E2006A; border-radius: 999px; align-self: flex-start; margin-top: 6px;">Claim Your Category</a>
         </div>
       </div>
     </div>
@@ -195,7 +198,7 @@
           </div>
         </div>
         <div style="display: flex; align-items: center; gap: 34px;">
-          <a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 18px 36px; background: #E91E75; border-radius: 999px; align-self: flex-start;">Claim Your Category</a>
+          <a class="cta" href="#pricing" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 18px 36px; background: #E91E75; border-radius: 999px; align-self: flex-start;">Claim Your Category</a>
           <span style="font-size: 18px; font-weight: 600; color: #B8B4D9;">Sixty days from the first call to a book you can hand someone.</span>
         </div>
       </div>
@@ -355,11 +358,11 @@
               </div>
             </div>
             <div style="font-size: 22px; font-weight: 700; line-height: 1.35; color: #FFFFFF;">2-Hour Category Book Call</div>
-            <div style="font-size: 17px; font-weight: 500; line-height: 1.6; color: #C9C5E4;">Spend two hours with me pulling the category out of your head. You leave with the language, the book idea and a chapter-by-chapter outline. From there you write it.</div>
+            <div style="font-size: 17px; font-weight: 500; line-height: 1.6; color: #C9C5E4;">A two-hour working session. Bring your expertise, your category and your book idea. You leave with a title, a subtitle and a chapter-by-chapter outline, or we spend the time on whatever you are stuck on.</div>
             <div style="font-size: 16px; font-weight: 700; line-height: 1.5; color: #FF2E85;">The $1,000 credits in full toward either package below if you upgrade.</div>
             <div style="margin-top: auto; padding-top: 24px; border-top: 1px solid rgba(184,180,217,.2); display: flex; flex-direction: column; gap: 20px;">
               <div style="font-size: 16px; font-weight: 500; line-height: 1.5; color: #B8B4D9;"><span style="font-weight: 700; color: #FFFFFF;">Best if</span> you want to write it yourself.</div>
-              <a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 15px; font-weight: 700; color: #FFFFFF; padding: 16px 24px; background: #E91E75; border-radius: 999px; text-align: center;">Schedule Your Call</a>
+              <a class="cta" href="https://calendly.com/iapath/book-coaching-call" target="_blank" rel="noopener" style="font-size: 15px; font-weight: 700; color: #FFFFFF; padding: 16px 24px; background: #E91E75; border-radius: 999px; text-align: center;">Book the 2-Hour Call</a>
             </div>
           </div>
           <div style="background: rgba(24,19,64,.66); border: 1px solid rgba(184,180,217,.2); border-radius: 10px; padding: 40px 36px 36px; display: flex; flex-direction: column; gap: 22px;">
@@ -377,7 +380,7 @@
             <div style="font-size: 17px; font-weight: 500; line-height: 1.6; color: #C9C5E4;">Work the whole build with me, from category language and outline through every draft. When your manuscript is done my team edits it, designs the cover and launches it on Amazon under your name.</div>
             <div style="margin-top: auto; padding-top: 24px; border-top: 1px solid rgba(184,180,217,.2); display: flex; flex-direction: column; gap: 20px;">
               <div style="font-size: 16px; font-weight: 500; line-height: 1.5; color: #B8B4D9;"><span style="font-weight: 700; color: #FFFFFF;">Best if</span> you are doing the writing and want it carried across the finish line.</div>
-              <a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 15px; font-weight: 700; color: #FFFFFF; padding: 16px 24px; background: #E91E75; border-radius: 999px; text-align: center;">Book a Call</a>
+              <a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 15px; font-weight: 700; color: #FFFFFF; padding: 16px 24px; background: #E91E75; border-radius: 999px; text-align: center;">Book a Fit Call</a>
             </div>
           </div>
           <div style="background: rgba(52,14,54,.5); border: 2px solid #E91E75; border-radius: 10px; padding: 40px 36px 36px; display: flex; flex-direction: column; gap: 22px;">
@@ -395,14 +398,14 @@
             <div style="font-size: 17px; font-weight: 500; line-height: 1.6; color: #C9C5E4;">Hand over the interviews and whatever you have already written. Your Mini Book comes back written in your voice, edited, designed and live on Amazon in 60 days.</div>
             <div style="margin-top: auto; padding-top: 24px; border-top: 1px solid rgba(184,180,217,.2); display: flex; flex-direction: column; gap: 20px;">
               <div style="font-size: 16px; font-weight: 500; line-height: 1.5; color: #B8B4D9;"><span style="font-weight: 700; color: #FFFFFF;">Best if</span> you want it done for you.</div>
-              <a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 15px; font-weight: 700; color: #FFFFFF; padding: 16px 24px; background: #E91E75; border-radius: 999px; text-align: center;">Apply to Work with Chris</a>
+              <a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 15px; font-weight: 700; color: #FFFFFF; padding: 16px 24px; background: #E91E75; border-radius: 999px; text-align: center;">Book a Fit Call</a>
             </div>
           </div>
         </div>
 
         <div style="display: flex; align-items: center; gap: 32px;">
-          <a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 18px 36px; background: #E91E75; border-radius: 999px;">Claim Your Category</a>
-          <span style="font-size: 18px; font-weight: 500; color: #B8B4D9;">Not sure which one? We'll figure it out on the call.</span>
+          <a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 18px 36px; background: #E91E75; border-radius: 999px;">Book a Fit Call</a>
+          <span style="font-size: 18px; font-weight: 500; color: #B8B4D9;">Not sure which one? Twenty minutes and we will know if this is a fit.</span>
         </div>
       </div>
     </div>
@@ -438,7 +441,7 @@
 
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 60px; padding-top: 44px; border-top: 2px solid #141A54;">
           <div style="font-size: 38px; font-weight: 800; letter-spacing: -.028em; line-height: 1.15; color: #141A54; max-width: 640px;">Your category is sitting there <span style="color: #E2006A;">either way.</span></div>
-          <a class="cta" href="https://calendly.com/iapath/category-publishing" target="_blank" rel="noopener" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 20px 40px; background: #E2006A; border-radius: 999px; white-space: nowrap;">Claim Your Category</a>
+          <a class="cta" href="#pricing" style="font-size: 16px; font-weight: 700; color: #FFFFFF; padding: 20px 40px; background: #E2006A; border-radius: 999px; white-space: nowrap;">Claim Your Category</a>
         </div>
       </div>
     </div>
