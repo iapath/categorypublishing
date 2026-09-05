@@ -1,28 +1,29 @@
-# /shelf-finder — Shelf Finder
+# The Shelf Finder — static site export
 
-Free category finder for your book. Serves at
-**categorypublishing.com/shelf-finder**.
+    index.html            Landing page (opt-in). Anchor #gate is the form.
+    results.html          On-site results page the email links to.
+    email/results.html    Teaser email, table-based, 600px, inline styles.
+    css/shelf-finder.css  All page styles + Smart Publishing Studio tokens.
+    js/shelf-finder.js    File-name display, form submit + confirmation, copy-path buttons.
 
-Drop the files in and Netlify publishes them as-is — no build step, same as
-`/articles/`, `/blueprint` and `/book-marketing`.
+Fonts load from Google Fonts: Bebas Neue (display), Montserrat (body), JetBrains Mono (KDP paths).
 
-| Put | Where |
-|---|---|
-| The tool | `shelf-finder/index.html` |
-| Images | `shelf-finder/assets/` — reference as `assets/<name>` |
-| Extra CSS/JS | `shelf-finder/` — reference as `<name>.css` |
+## Wiring it up
 
-Lowercase filenames with hyphens: `Hero-Image.PNG` works on a Mac and 404s on
-Netlify.
+1. Landing form posts multipart to `/api/shelf-finder` (change `action` on `#shelf-form`).
+   Fields: `manuscript` (file, optional), `summary` (text, optional), `email` (required),
+   `source` (hidden, `shelf-finder`). One of manuscript/summary is required — enforced client
+   and server side.
+2. On success the JS swaps the form for the "Check your inbox." panel. No redirect.
+3. Your endpoint runs the tool, stores the three categories against a token, tags the contact
+   `source = shelf-finder`, and sends the email.
+4. Email template placeholders: `{{first_name}}`, `{{results_url}}`, `{{blueprint_url}}`,
+   `{{unsubscribe_url}}`. `results_url` = `results.html?t=TOKEN`, live 30 days.
+5. results.html carries sample categories. Render the three cards server side (or fetch by token)
+   using the same markup: `.res-card` with name, rank line, KDP path, and "why it fits".
+   The `data-copy` attribute holds the plain-text path for the copy button.
 
-Delete this README once the tool is in.
+## Language rules
 
-## Two things I'll check once it's loaded
-
-- **Metadata.** If it's a Claude Design bundle like `/book-marketing`, its head
-  will say "Bundled Page" and the unpacker will wipe whatever is only in the
-  outer head. That needs fixing in both heads, plus the favicon and the
-  placeholder logo.
-- **Where the leads go.** A free tool wants somewhere to send people afterwards.
-  Tell me if it should collect emails, and whether it points at the Lazy Book
-  Marketing System or a call.
+No specific sales figures anywhere. The only claim is that #1 takes under 20 sales a day based on
+historical data research. Never claim guaranteed bestseller status.

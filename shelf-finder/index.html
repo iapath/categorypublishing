@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amazon Category Finder — Pick the category you can win</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shelf-finder.css">
+</head>
+<body class="dark">
+
+<main>
+  <section class="wrap hero">
+    <div class="hero-col">
+      <div class="eyebrow">Category Publishing</div>
+      <h1>Pick the category<br>you can <span class="win">win</span>.</h1>
+      <p class="lede">We'll find three Amazon categories where your book can hit #1 with under 20 sales. Based on historical performance data.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:4px">
+        <a class="btn" href="#gate">Find My Categories</a>
+        <span style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)">Free &middot; Nonfiction only</span>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">Your Three Categories</div>
+        <div class="panel-tag">Sample</div>
+      </div>
+      <div class="panel-row"><div class="n">1</div><div><div class="panel-path">Kindle eBooks &rsaquo; Business &amp; Money &rsaquo; Marketing &amp; Sales &rsaquo; Marketing &rsaquo; Direct</div><div class="panel-note">Under 20 sales a day to #1</div></div></div>
+      <div class="panel-row"><div class="n">2</div><div><div class="panel-path">Kindle eBooks &rsaquo; Business &amp; Money &rsaquo; Entrepreneurship &rsaquo; Consulting</div><div class="panel-note">Under 20 sales a day to #1</div></div></div>
+      <div class="panel-row"><div class="n">3</div><div><div class="panel-path">Kindle eBooks &rsaquo; Business &amp; Money &rsaquo; Marketing &amp; Sales &rsaquo; Public Relations</div><div class="panel-note">Under 20 sales a day to #1</div></div></div>
+      <div class="panel-foot">3 winners arrive by email.</div>
+    </div>
+  </section>
+
+  <section class="narrow" style="padding-top:40px;padding-bottom:56px;display:flex;flex-direction:column;gap:22px">
+    <h2 style="font-size:clamp(34px,5.2vw,54px)">Most authors pick the biggest category they can find.</h2>
+    <p class="body-dark">Then they land in a list with two thousand other books and never move.</p>
+    <p class="body-dark">The category you can win is smaller. Less obvious. And reachable on launch day with a number of sales you probably already have in your phone contacts.</p>
+  </section>
+
+  <div class="band"><p>You don't need more readers.<br>You need the right shelf.</p></div>
+
+  <section class="light" style="padding:64px 0 72px">
+    <div class="mid" style="display:flex;flex-direction:column;gap:40px">
+      <h2 style="font-size:clamp(32px,4.6vw,46px)">How it works</h2>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h3>Upload your manuscript or give a summary</h3><p>Drop in the full file, or write a few paragraphs. Either works.</p></div>
+        <div class="step"><div class="n">2</div><h3>We read what your book is actually about</h3><p>Not the category you'd name. The one Amazon would.</p></div>
+        <div class="step"><div class="n">3</div><h3>You get three categories you can win</h3><p>Each one reachable at #1 with under 20 sales a day.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gate" class="light" style="padding:0 22px 72px">
+    <div class="gate">
+      <form id="shelf-form" action="/api/shelf-finder" method="post" enctype="multipart/form-data" style="display:flex;flex-direction:column;gap:22px">
+        <h2>Where should we send your categories?</h2>
+        <input type="hidden" name="source" value="shelf-finder">
+        <div class="field">
+          <span class="label">Your full manuscript</span>
+          <label class="drop">
+            <span style="min-width:0">
+              <span class="name" id="file-name">No file chosen</span>
+              <span class="hint" style="display:block">DOCX, PDF or TXT. Up to 25 MB.</span>
+            </span>
+            <span class="pick">Choose file</span>
+            <input type="file" id="manuscript" name="manuscript" accept=".doc,.docx,.pdf,.txt,.rtf,.md" hidden>
+          </label>
+        </div>
+        <div class="or"><span></span><em>Or just give a summary</em><span></span></div>
+        <label class="field">
+          <span class="label">Summary</span>
+          <textarea name="summary" rows="5" placeholder="A few paragraphs on what the book is about and who it is for."></textarea>
+        </label>
+        <label class="field">
+          <span class="label">Email</span>
+          <input type="email" name="email" required placeholder="you@example.com">
+        </label>
+        <button class="btn" type="submit" style="width:100%">Send My Categories</button>
+        <div class="micro">No spam. Unsubscribe anytime.</div>
+      </form>
+      <div id="shelf-done" hidden style="display:flex;flex-direction:column;gap:16px;text-align:center;padding:24px 0">
+        <div style="font-family:var(--font-display);font-size:clamp(34px,5vw,48px);line-height:1;text-transform:uppercase;color:#fff">Check your inbox.</div>
+        <p style="margin:0;font-size:18px;line-height:1.6;color:rgba(255,255,255,.8)">Your categories are on the way.</p>
+        <button class="btn btn-ghost" type="button" id="shelf-again" style="align-self:center;margin-top:8px">Run another book</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="light" style="padding:0 0 72px">
+    <div style="max-width:860px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;gap:28px">
+      <h2 style="font-size:clamp(32px,4.6vw,46px)">What you get</h2>
+      <div class="list">
+        <div class="list-item"><span class="dot"></span><div><strong style="color:var(--gray-800)">Three categories you can realistically win</strong> &mdash; ranked by how reachable each one is</div></div>
+        <div class="list-item"><span class="dot"></span><div><strong style="color:var(--gray-800)">Shelves where #1 takes under 20 sales a day</strong> &mdash; based on historical data research</div></div>
+        <div class="list-item"><span class="dot"></span><div><strong style="color:var(--gray-800)">The full category path</strong> &mdash; ready to paste straight into KDP</div></div>
+        <div class="list-item"><span class="dot"></span><div><strong style="color:var(--gray-800)">Why each one fits</strong> &mdash; so you can pick with confidence instead of guessing</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="light" style="padding:0 0 76px">
+    <div style="max-width:860px;margin:0 auto;padding:0 22px" class="rule">
+      <h2 style="font-size:clamp(28px,4vw,38px)">Who this is for</h2>
+      <p style="margin:0;font-size:18px;line-height:1.6"><strong>Nonfiction only.</strong> Business, self-help, how-to, memoir, devotional.</p>
+      <p style="margin:0;font-size:17px;line-height:1.65;color:var(--gray-600)">Writing fiction? Need EXACT sales #'s? Use <a href="https://publisherrocket.com/?affiliate=chris_stanley" target="_blank" rel="noopener" style="color:var(--pink-600)">Publisher Rocket</a> instead. You'll get most up to date data there.</p>
+    </div>
+  </section>
+
+  <section class="narrow" style="padding-top:72px;padding-bottom:8px;display:flex;flex-direction:column;gap:22px">
+    <div class="eyebrow">Why this matters more than a badge</div>
+    <h2 style="font-size:clamp(34px,5.2vw,54px)">A category is a place in someone's mind.</h2>
+    <p class="body-dark">On Amazon it's a shelf. In your market it's the space you occupy when someone describes what you do.</p>
+    <p class="body-dark">Most books get published into a crowded shelf and disappear. The ones that last claim a shelf nobody else was standing on.</p>
+    <p class="body-dark">This tool solves the small version of that problem. The Amazon one.</p>
+    <p style="margin:0;font-size:20px;line-height:1.5;font-weight:600;color:#fff">The bigger version is the one worth solving next.</p>
+  </section>
+
+  <section class="narrow" style="padding-top:64px;padding-bottom:64px">
+    <div style="border-top:1px solid rgba(255,255,255,.16);padding-top:36px;display:flex;flex-direction:column;gap:18px">
+      <div style="font-family:var(--font-display);font-size:clamp(26px,3.6vw,34px);text-transform:uppercase;letter-spacing:.02em">Who built it</div>
+      <p class="body-dark" style="color:rgba(255,255,255,.82)">I'm Chris Stanley. I've published 31 books and hit 21 bestseller lists.</p>
+      <p class="body-dark" style="color:rgba(255,255,255,.82)">I help experts write and publish the book that claims their category. This is some of the same category research I run for paying clients, and now it's free.</p>
+    </div>
+  </section>
+
+  <section class="narrow" style="padding-top:24px;padding-bottom:96px;display:flex;flex-direction:column;align-items:center;gap:30px;text-align:center">
+    <h2 style="font-size:clamp(40px,7vw,72px)">Stop guessing<br>at your shelf.</h2>
+    <a class="btn" href="#gate">Find My Categories</a>
+  </section>
+</main>
+
+<footer><div>CategoryPublishers.com</div></footer>
+
+<script src="js/shelf-finder.js"></script>
+</body>
+</html>
