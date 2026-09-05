@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Category Book Blueprint</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+
+/* fonts.css */
+
+
+/* colors.css */
+/* ─────────────────────────────────────────────
+   Smart Publishing Studio — Color Tokens
+   Primary palette: Pink · Electric Blue · Navy
+───────────────────────────────────────────── */
+:root {
+  /* ── Brand Pink / Magenta ── */
+  --color-pink-100: #fce8f3;
+  --color-pink-200: #f5b8d9;
+  --color-pink-300: #ee82be;
+  --color-pink-400: #e84ca0;
+  --color-pink-500: #e2006a;   /* PRIMARY — logo "Smart", flywheel ring */
+  --color-pink-600: #b5004f;
+  --color-pink-700: #880038;
+  --color-pink-800: #5a0025;
+
+  /* ── Electric Blue ── */
+  --color-blue-100: #e8e8fc;
+  --color-blue-200: #b8b8f5;
+  --color-blue-300: #7878ee;
+  --color-blue-400: #4040e4;
+  --color-blue-500: #1212cc;   /* PRIMARY — blueprint background */
+  --color-blue-600: #0d0da8;
+  --color-blue-700: #090980;
+  --color-blue-800: #060655;
+
+  /* ── Deep Navy ── */
+  --color-navy-100: #d0d4e8;
+  --color-navy-200: #9aa4c8;
+  --color-navy-300: #5566a4;
+  --color-navy-400: #1e3080;
+  --color-navy-500: #0d1654;   /* PRIMARY — flywheel bg, logo brushstroke */
+  --color-navy-600: #091040;
+  --color-navy-700: #060a2c;
+  --color-navy-800: #03051a;
+
+  /* ── Accent: Gold/Yellow (Mini Book Marketing, Money) ── */
+  --color-yellow-300: #fce96a;
+  --color-yellow-400: #f8d820;
+  --color-yellow-500: #f5c800;
+  --color-yellow-600: #c8a000;
+  --color-yellow-700: #8a6e00;
+
+  /* ── Accent: Orange (Mini Book Publishing) ── */
+  --color-orange-300: #f5a060;
+  --color-orange-400: #f07020;
+  --color-orange-500: #e85500;
+  --color-orange-600: #b84200;
+  --color-orange-700: #7a2c00;
+
+  /* ── Neutrals ── */
+  --color-white:     #ffffff;
+  --color-cream:     #f7f3f0;   /* logo background off-white */
+  --color-gray-100:  #f0ece8;
+  --color-gray-200:  #e0dbd6;
+  --color-gray-300:  #c4bdb8;
+  --color-gray-400:  #9a9490;
+  --color-gray-500:  #706a66;
+  --color-gray-600:  #4a4542;
+  --color-gray-700:  #2e2b28;
+  --color-gray-800:  #1a1714;
+  --color-black:     #0a0808;
+
+  /* ── Semantic Aliases ── */
+  --color-brand-primary:        var(--color-pink-500);
+  --color-brand-secondary:      var(--color-blue-500);
+  --color-brand-dark:           var(--color-navy-500);
+
+  --color-background:           var(--color-cream);
+  --color-surface:              var(--color-white);
+  --color-surface-raised:       var(--color-white);
+  --color-surface-dark:         var(--color-navy-500);
+  --color-surface-electric:     var(--color-blue-500);
+
+  --color-text-primary:         var(--color-gray-800);
+  --color-text-secondary:       var(--color-gray-600);
+  --color-text-tertiary:        var(--color-gray-400);
+  --color-text-on-dark:         var(--color-white);
+  --color-text-on-brand:        var(--color-white);
+  --color-text-link:            var(--color-pink-500);
+  --color-text-link-hover:      var(--color-pink-600);
+
+  --color-border:               var(--color-gray-200);
+  --color-border-strong:        var(--color-gray-300);
+
+  --color-interactive:          var(--color-pink-500);
+  --color-interactive-hover:    var(--color-pink-600);
+  --color-interactive-alt:      var(--color-blue-500);
+  --color-interactive-alt-hover: var(--color-blue-600);
+
+  --color-focus-ring:           var(--color-pink-400);
+}
+
+/* typography.css */
+/* ─────────────────────────────────────────────
+   Smart Publishing Studio — Typography Tokens
+───────────────────────────────────────────── */
+:root {
+  /* ── Font Families ──
+     Display: Bebas Neue — ultra-bold condensed for book-cover headlines
+     Note: Bebas Neue is a nearest Google Fonts match for the original
+     cover typeface. Request original font files for exact fidelity.
+     Sans: Montserrat — clean geometric, used for subtitles, body, UI
+     Mono: JetBrains Mono — code and technical content
+  ── */
+  --font-display: 'Bebas Neue', 'Anton', Impact, 'Arial Narrow', sans-serif;
+  --font-sans:    'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* ── Display Scale (Bebas Neue — book-cover hero type) ── */
+  --text-display-2xl: 7rem;    /* 112px — full-bleed hero */
+  --text-display-xl:  5rem;    /* 80px  — section hero */
+  --text-display-lg:  3.75rem; /* 60px  — slide title */
+  --text-display-md:  2.75rem; /* 44px  — card headline */
+  --text-display-sm:  2rem;    /* 32px  — callout text */
+
+  /* ── UI Scale (Montserrat) ── */
+  --text-4xl:  2.25rem;   /* 36px */
+  --text-3xl:  1.875rem;  /* 30px */
+  --text-2xl:  1.5rem;    /* 24px */
+  --text-xl:   1.25rem;   /* 20px */
+  --text-lg:   1.125rem;  /* 18px */
+  --text-md:   1rem;      /* 16px */
+  --text-sm:   0.875rem;  /* 14px */
+  --text-xs:   0.75rem;   /* 12px */
+  --text-2xs:  0.6875rem; /* 11px */
+
+  /* ── Weights ── */
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+  --weight-extrabold: 800;
+  --weight-black:     900;
+
+  /* ── Line Heights ── */
+  --leading-none:     1;
+  --leading-tight:    1.1;
+  --leading-snug:     1.25;
+  --leading-normal:   1.5;
+  --leading-relaxed:  1.625;
+  --leading-loose:    1.875;
+
+  /* ── Letter Spacing ── */
+  --tracking-tight:   -0.02em;
+  --tracking-normal:   0em;
+  --tracking-wide:     0.05em;
+  --tracking-wider:    0.1em;
+  --tracking-widest:   0.2em;
+  --tracking-subtitle: 0.15em; /* book-cover subtitle style */
+  --tracking-caps:     0.08em; /* UI button/label caps */
+}
+
+/* spacing.css */
+/* ─────────────────────────────────────────────
+   Smart Publishing Studio — Spacing Tokens
+───────────────────────────────────────────── */
+:root {
+  /* ── Base Scale (4px grid) ── */
+  --space-0:  0px;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  28px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-28: 112px;
+  --space-32: 128px;
+  --space-40: 160px;
+  --space-48: 192px;
+
+  /* ── Semantic: Component Internal ── */
+  --space-component-2xs: var(--space-1);   /* 4px  — icon gap, chip padding */
+  --space-component-xs:  var(--space-2);   /* 8px  — tight padding */
+  --space-component-sm:  var(--space-3);   /* 12px — small button */
+  --space-component-md:  var(--space-4);   /* 16px — default padding */
+  --space-component-lg:  var(--space-6);   /* 24px — card padding */
+  --space-component-xl:  var(--space-8);   /* 32px — large card padding */
+
+  /* ── Semantic: Layout / Section ── */
+  --space-layout-xs:  var(--space-8);    /* 32px  — between subsections */
+  --space-layout-sm:  var(--space-12);   /* 48px  — between sections */
+  --space-layout-md:  var(--space-16);   /* 64px  — major section gap */
+  --space-layout-lg:  var(--space-24);   /* 96px  — hero padding */
+  --space-layout-xl:  var(--space-32);   /* 128px — full-bleed section */
+
+  /* ── Content Container ── */
+  --container-sm:   640px;
+  --container-md:   960px;
+  --container-lg:  1200px;
+  --container-xl:  1440px;
+}
+
+/* effects.css */
+/* ─────────────────────────────────────────────
+   Smart Publishing Studio — Effects Tokens
+   Shadows · Radii · Borders · Transitions
+───────────────────────────────────────────── */
+:root {
+  /* ── Border Radius ──
+     Brand aesthetic favors sharp, editorial corners.
+     Use minimal radii; avoid large "bubbly" rounding.
+  ── */
+  --radius-none:  0px;
+  --radius-xs:    1px;
+  --radius-sm:    2px;   /* default — buttons, badges, sharp cards */
+  --radius-md:    4px;   /* cards, inputs */
+  --radius-lg:    8px;   /* larger cards, modals */
+  --radius-xl:    12px;  /* floating panels */
+  --radius-2xl:   16px;  /* rare, image containers */
+  --radius-full:  9999px; /* pills, avatars */
+
+  /* ── Shadows ── */
+  --shadow-none:  none;
+  --shadow-xs:    0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-sm:    0 1px 4px rgba(0, 0, 0, 0.10), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md:    0 4px 12px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg:    0 8px 24px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-xl:    0 16px 40px rgba(0, 0, 0, 0.18), 0 8px 16px rgba(0, 0, 0, 0.10);
+  --shadow-2xl:   0 24px 64px rgba(0, 0, 0, 0.22), 0 12px 24px rgba(0, 0, 0, 0.12);
+
+  /* ── Brand Glow Shadows ── */
+  --shadow-glow-pink:  0 0 24px rgba(226, 0, 106, 0.40), 0 0 8px rgba(226, 0, 106, 0.20);
+  --shadow-glow-blue:  0 0 24px rgba(18, 18, 204, 0.40), 0 0 8px rgba(18, 18, 204, 0.20);
+  --shadow-glow-navy:  0 0 24px rgba(13, 22, 84, 0.50), 0 0 8px rgba(13, 22, 84, 0.25);
+
+  /* ── Book Cover Shadow ── */
+  --shadow-cover: 6px 6px 20px rgba(0, 0, 0, 0.55), 3px 3px 8px rgba(0, 0, 0, 0.30);
+
+  /* ── Borders ── */
+  --border-width-thin:   1px;
+  --border-width-base:   2px;
+  --border-width-thick:  3px;
+  --border-default:      1px solid var(--color-border);
+  --border-strong:       1px solid var(--color-border-strong);
+  --border-brand:        2px solid var(--color-pink-500);
+  --border-brand-alt:    2px solid var(--color-blue-500);
+
+  /* ── Transitions ── */
+  --transition-fast:    100ms ease; /* @kind other */
+  --transition-base:    180ms ease; /* @kind other */
+  --transition-slow:    300ms ease; /* @kind other */
+  --transition-spring:  400ms cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */
+  --transition-ease-out: 250ms cubic-bezier(0.22, 1, 0.36, 1); /* @kind other */
+
+  /* ── Z-index layers ── */
+  --z-below:    -1; /* @kind other */
+  --z-base:      0; /* @kind other */
+  --z-raised:   10; /* @kind other */
+  --z-dropdown: 100; /* @kind other */
+  --z-overlay:  200; /* @kind other */
+  --z-modal:    300; /* @kind other */
+  --z-toast:    400; /* @kind other */
+}
+
+/* base.css */
+/* ─────────────────────────────────────────────
+   Smart Publishing Studio — Base Reset
+───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: var(--weight-extrabold);
+  line-height: var(--leading-tight);
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--color-text-link);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+a:hover {
+  color: var(--color-text-link-hover);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+
+doc-page:not(:defined){visibility:hidden}
+[data-k]:empty::before{content:attr(data-ph);color:#8b86a3;font-weight:400;font-style:italic}
+[data-ph-light]:empty::before{color:rgba(255,255,255,.9)}
+[contenteditable]{outline:none;border-radius:2px}
+[contenteditable]:hover{box-shadow:0 0 0 3px rgba(226,0,106,.07)}
+[contenteditable]:focus{box-shadow:0 0 0 2px #E2006A}
+a{color:#E2006A}a:hover{color:#b30054}
+@media print{[contenteditable]:hover,[contenteditable]:focus{box-shadow:none}[data-k]:empty::before{color:#b4afc4}}
+
+html,body{margin:0;padding:0}
+</style>
+<script src="doc-page.js"></script>
+<script src="image-slot.js"></script>
+</head>
+<body>
+<doc-page width="13.333in" height="7.5in">
+
+<section class="page" data-screen-label="Cover" style="position:relative;background:#0D1654;color:#F7F3F0;font-family:var(--font-sans,Montserrat),sans-serif;overflow:hidden;padding:0.7in 0.8in;display:flex;flex-direction:column">
+  <div style="position:absolute;right:-2.1in;top:-1.5in;width:7.4in;height:7.4in;border:1.5px solid rgba(226,0,106,.55);border-radius:50%"></div>
+  <div style="position:absolute;right:-1.3in;top:-0.7in;width:5.8in;height:5.8in;border:14px solid rgba(226,0,106,.9);border-radius:50%"></div>
+  <div style="position:absolute;right:-0.35in;top:0.25in;width:4.2in;height:4.2in;border:1.5px solid rgba(247,243,240,.3);border-radius:50%"></div>
+  <div style="position:relative;display:flex;flex-direction:column;height:100%">
+    <div style="font-size:10px;letter-spacing:0.34em;text-transform:uppercase;font-weight:700;color:#E2006A">Category Publishing</div>
+    <div style="margin-top:auto;max-width:7.2in">
+      <div style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;font-weight:600;color:rgba(247,243,240,.85);margin-bottom:6px">Category</div>
+      <div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:132px;line-height:0.84;letter-spacing:0.005em">BOOK<br>BLUEPRINT</div>
+      <div style="width:2.2in;height:6px;background:#E2006A;margin:22px 0 20px"></div>
+      <div style="display:flex;gap:0.55in;align-items:flex-start">
+        <div>
+          <div style="font-size:9px;letter-spacing:0.24em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:7px">Prepared for</div>
+          <div data-k="client" data-ph="Client name" contenteditable="true" style="font-size:25px;font-weight:700;line-height:1.2;min-width:2.6in"></div>
+          <div data-k="cover_client_line" data-ph="Their business or expertise, one line" contenteditable="true" style="font-size:12px;font-weight:400;color:rgba(247,243,240,.88);margin-top:5px;max-width:3.2in"></div>
+        </div>
+        <div>
+          <div style="font-size:9px;letter-spacing:0.24em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:7px">Prepared by</div>
+          <div style="font-size:25px;font-weight:700;line-height:1.2">Chris Stanley</div>
+          <div data-k="cover_date" data-ph="Month DD, YYYY" contenteditable="true" style="font-size:12px;font-weight:400;color:rgba(247,243,240,.88);margin-top:5px"></div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:auto;padding-top:0.4in;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(247,243,240,.7)">CategoryPublishing.com</div>
+  </div>
+  <div style="position:absolute;right:0.8in;bottom:0.66in;width:1.05in;height:1.05in;border-radius:50%;overflow:hidden;border:1px solid rgba(247,243,240,.35)"><image-slot id="cbb-client-mark" shape="rect" placeholder="Logo / headshot"></image-slot></div>
+</section>
+
+<section class="page" data-screen-label="01 The Claim" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">01</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">THE CLAIM</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Everything else derives from this page</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:0.34in">
+    <div style="display:flex;flex-direction:column;gap:0.2in">
+      <div>
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">The category name</div>
+        <div data-k="claim_category" data-ph="Name the category" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:56px;line-height:0.94;letter-spacing:0.01em"></div>
+      </div>
+      <div style="border-left:4px solid #0D1654;padding-left:14px">
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:5px">The enemy</div>
+        <div data-k="claim_enemy" data-ph="The belief the reader has to fight — not a competitor" contenteditable="true" style="font-size:14px;line-height:1.5;font-weight:500"></div>
+      </div>
+      <div style="border-left:4px solid #0D1654;padding-left:14px">
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:5px">The belief being changed</div>
+        <div data-k="claim_belief" data-ph="From what they believe now → to what they believe after" contenteditable="true" style="font-size:14px;line-height:1.5;font-weight:500"></div>
+      </div>
+    </div>
+    <div style="background:#0D1654;color:#F7F3F0;padding:0.34in 0.32in;display:flex;flex-direction:column">
+      <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:12px">Remembered five years out</div>
+      <div data-k="claim_sentence" data-ph-light="1" data-ph="One sentence. The line you want repeated back to you." contenteditable="true" style="font-size:26px;line-height:1.3;font-weight:700;text-wrap:pretty"></div>
+      <div style="margin-top:auto;padding-top:0.24in;border-top:1px solid rgba(247,243,240,.3);font-size:11px;line-height:1.5;color:rgba(247,243,240,.9)">
+        <span style="font-weight:700;color:#F7F3F0">Why this one:</span> <span data-k="claim_why" data-ph-light="1" data-ph="What makes this sentence defensible" contenteditable="true"></span>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:auto;display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>01</span></div>
+</section>
+
+<section class="page" data-screen-label="02 The Framework" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.22in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">02</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">THE FRAMEWORK</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">The named mechanism · up to ten parts</div>
+  </div>
+  <div style="display:flex;align-items:baseline;gap:18px">
+    <div data-k="fw_name" data-ph="Name the mechanism" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:50px;line-height:0.9"></div>
+    <div data-k="fw_line" data-ph="What it does, in one line" contenteditable="true" style="font-size:13px;line-height:1.5;font-weight:500;color:#2f3556;flex:1"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:1fr 1fr;gap:0.16in;flex:1;min-height:0">
+    <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #E2006A;padding:12px 12px;display:flex;flex-direction:column;gap:6px;min-height:0"><div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8;color:#E2006A">01</div><div data-k="fw_p1_name" data-ph="Part one" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.25"></div><div data-k="fw_p1_desc" data-ph="What happens here" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+    <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #E2006A;padding:12px 12px;display:flex;flex-direction:column;gap:6px;min-height:0"><div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8;color:#E2006A">02</div><div data-k="fw_p2_name" data-ph="Part two" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.25"></div><div data-k="fw_p2_desc" data-ph="What happens here" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+    <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #E2006A;padding:12px 12px;display:flex;flex-direction:column;gap:6px;min-height:0"><div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8;color:#E2006A">03</div><div data-k="fw_p3_name" data-ph="Part three" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.25"></div><div data-k="fw_p3_desc" data-ph="What happens here" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+    <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #E2006A;padding:12px 12px;display:flex;flex-direction:column;gap:6px;min-height:0"><div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8;color:#E2006A">04</div><div data-k="fw_p4_name" data-ph="Part four" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.25"></div><div data-k="fw_p4_desc" data-ph="What happens here" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+    <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #E2006A;padding:12px 12px;display:flex;flex-direction:column;gap:6px;min-height:0"><div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8;color:#E2006A">05</div><div data-k="fw_p5_name" data-ph="Part five" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.25"></div><div data-k="fw_p5_desc" data-ph="What happens here" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+    <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #b8b3c4;padding:12px 12px;display:flex;flex-direction:column;gap:6px;min-height:0"><div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8;color:#9a94ad">06</div><div data-k="fw_p6_name" data-ph="Part six" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.25"></div><div data-k="fw_p6_desc" data-ph="What happens here" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+    <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #b8b3c4;padding:12px 12px;display:flex;flex-direction:column;gap:6px;min-height:0"><div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8;color:#9a94ad">07</div><div data-k="fw_p7_name" data-ph="Part seven" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.25"></div><div data-k="fw_p7_desc" data-ph="What happens here" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+    <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #b8b3c4;padding:12px 12px;display:flex;flex-direction:column;gap:6px;min-height:0"><div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8;color:#9a94ad">08</div><div data-k="fw_p8_name" data-ph="Part eight" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.25"></div><div data-k="fw_p8_desc" data-ph="What happens here" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+    <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #b8b3c4;padding:12px 12px;display:flex;flex-direction:column;gap:6px;min-height:0"><div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8;color:#9a94ad">09</div><div data-k="fw_p9_name" data-ph="Part nine" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.25"></div><div data-k="fw_p9_desc" data-ph="What happens here" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+    <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #b8b3c4;padding:12px 12px;display:flex;flex-direction:column;gap:6px;min-height:0"><div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8;color:#9a94ad">10</div><div data-k="fw_p10_name" data-ph="Part ten" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.25"></div><div data-k="fw_p10_desc" data-ph="What happens here" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>02</span></div>
+</section>
+
+<section class="page" data-screen-label="02 Framework Continued" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.22in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">02</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">FRAMEWORK CONTINUED</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Diagram &amp; logic</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 3.6in;gap:0.34in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:8px;min-height:0">
+      <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Finished diagram</div>
+      <div style="flex:1;min-height:0"><image-slot id="cbb-framework-diagram" shape="rect" fit="contain" placeholder="Drop the finished diagram"></image-slot></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.18in;min-height:0">
+      <div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:5px">Why this order</div><div data-k="fw_order" data-ph="Why the parts run in this sequence and not another" contenteditable="true" style="font-size:12.5px;line-height:1.55;font-weight:500"></div></div>
+      <div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:5px">What breaks without it</div><div data-k="fw_break" data-ph="The failure the framework prevents" contenteditable="true" style="font-size:12.5px;line-height:1.55;font-weight:500"></div></div>
+      <div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:5px">Where the reader enters</div><div data-k="fw_entry" data-ph="The part most readers start at" contenteditable="true" style="font-size:12.5px;line-height:1.55;font-weight:500"></div></div>
+      <div style="margin-top:auto;background:#0D1654;color:#F7F3F0;padding:0.2in 0.24in">
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:7px">The framework in one sentence</div>
+        <div data-k="fw_sentence" data-ph-light="1" data-ph="How they'll describe it on a podcast" contenteditable="true" style="font-size:15px;line-height:1.4;font-weight:600"></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>02</span></div>
+</section>
+
+<section class="page" data-screen-label="03 Title and Cover" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.22in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">03</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">TITLE &amp; COVER</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Options with reasoning</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 4.5in;gap:0.34in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:0.16in;min-height:0">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:12px;align-items:baseline;border-bottom:1px solid #ddd7d2;padding-bottom:9px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:24px;line-height:0.8;color:#E2006A;width:22px">A</span><div style="flex:1"><div data-k="title_a" data-ph="Title option A" contenteditable="true" style="font-size:19px;font-weight:700;line-height:1.2"></div><div data-k="title_a_why" data-ph="Why it works" contenteditable="true" style="font-size:11px;line-height:1.5;color:#2f3556;margin-top:3px"></div></div></div>
+        <div style="display:flex;gap:12px;align-items:baseline;border-bottom:1px solid #ddd7d2;padding-bottom:9px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:24px;line-height:0.8;color:#E2006A;width:22px">B</span><div style="flex:1"><div data-k="title_b" data-ph="Title option B" contenteditable="true" style="font-size:19px;font-weight:700;line-height:1.2"></div><div data-k="title_b_why" data-ph="Why it works" contenteditable="true" style="font-size:11px;line-height:1.5;color:#2f3556;margin-top:3px"></div></div></div>
+        <div style="display:flex;gap:12px;align-items:baseline;border-bottom:1px solid #ddd7d2;padding-bottom:9px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:24px;line-height:0.8;color:#E2006A;width:22px">C</span><div style="flex:1"><div data-k="title_c" data-ph="Title option C" contenteditable="true" style="font-size:19px;font-weight:700;line-height:1.2"></div><div data-k="title_c_why" data-ph="Why it works" contenteditable="true" style="font-size:11px;line-height:1.5;color:#2f3556;margin-top:3px"></div></div></div>
+        <div style="display:flex;gap:12px;align-items:baseline;border-bottom:1px solid #ddd7d2;padding-bottom:9px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:24px;line-height:0.8;color:#E2006A;width:22px">D</span><div style="flex:1"><div data-k="title_d" data-ph="Title option D (optional)" contenteditable="true" style="font-size:19px;font-weight:700;line-height:1.2"></div><div data-k="title_d_why" data-ph="Why it works" contenteditable="true" style="font-size:11px;line-height:1.5;color:#2f3556;margin-top:3px"></div></div></div>
+      </div>
+      <div style="margin-top:auto;background:#0D1654;color:#F7F3F0;padding:0.2in 0.24in">
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:7px">Subtitle — the elevator pitch</div>
+        <div data-k="subtitle" data-ph-light="1" data-ph="Who it's for, what changes, how fast" contenteditable="true" style="font-size:17px;font-weight:600;line-height:1.35"></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.26in;align-content:start">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Direction one</div>
+        <div style="width:100%;aspect-ratio:1600/2560;position:relative"><image-slot id="cbb-cover-dir-1" shape="rect" placeholder="Drop cover direction 1"></image-slot></div>
+        <div data-k="cover_dir_1" data-ph="The idea" contenteditable="true" style="font-size:11px;line-height:1.4;color:#2f3556"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Direction two</div>
+        <div style="width:100%;aspect-ratio:1600/2560;position:relative"><image-slot id="cbb-cover-dir-2" shape="rect" placeholder="Drop cover direction 2"></image-slot></div>
+        <div data-k="cover_dir_2" data-ph="The idea" contenteditable="true" style="font-size:11px;line-height:1.4;color:#2f3556"></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>03</span></div>
+</section>
+
+<section class="page" data-screen-label="04 The Outline" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.18in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">04</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">THE OUTLINE</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Intro · Argument · Playbook · Conclusion</div>
+  </div>
+  <div style="display:flex;gap:14px;align-items:baseline;background:#fff;border:1px solid #ddd7d2;padding:9px 12px">
+    <span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;white-space:nowrap">Introduction</span>
+    <div data-k="outline_intro" data-ph="The hook — person, promise, preview" contenteditable="true" style="font-size:12px;line-height:1.4;flex:1"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.35fr;gap:0.34in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:10px;min-height:0">
+      <div style="display:flex;align-items:baseline;gap:10px;border-bottom:3px solid #E2006A;padding-bottom:6px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Part one</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:28px;line-height:0.8">THE ARGUMENT</span></div>
+      <div data-k="outline_arg_note" data-ph="What this half has to prove" contenteditable="true" style="font-size:11.5px;line-height:1.5;color:#2f3556;font-style:italic;min-height:0.3in"></div>
+      <div style="display:flex;flex-direction:column;justify-content:space-between;flex:1;min-height:0;gap:0.18in">
+        <div style="display:flex;gap:11px;align-items:baseline"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:22px;color:#9a94ad;width:20px">1</span><div style="flex:1"><div data-k="ch1" data-ph="Chapter title" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.3"></div><div data-k="ch1_note" data-ph="The claim it lands" contenteditable="true" style="font-size:11.5px;line-height:1.6;color:#2f3556;min-height:0.42in;border-bottom:1px solid #e4ded9;padding-bottom:6px"></div></div></div>
+        <div style="display:flex;gap:11px;align-items:baseline"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:22px;color:#9a94ad;width:20px">2</span><div style="flex:1"><div data-k="ch2" data-ph="Chapter title" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.3"></div><div data-k="ch2_note" data-ph="The claim it lands" contenteditable="true" style="font-size:11.5px;line-height:1.6;color:#2f3556;min-height:0.42in;border-bottom:1px solid #e4ded9;padding-bottom:6px"></div></div></div>
+        <div style="display:flex;gap:11px;align-items:baseline"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:22px;color:#9a94ad;width:20px">3</span><div style="flex:1"><div data-k="ch3" data-ph="Chapter title" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.3"></div><div data-k="ch3_note" data-ph="The claim it lands" contenteditable="true" style="font-size:11.5px;line-height:1.6;color:#2f3556;min-height:0.42in;border-bottom:1px solid #e4ded9;padding-bottom:6px"></div></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;min-height:0">
+      <div style="display:flex;align-items:baseline;gap:10px;border-bottom:3px solid #0D1654;padding-bottom:6px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#0D1654">Part two</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:28px;line-height:0.8">THE PLAYBOOK</span><span style="font-size:9px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;color:#4a4f70;margin-left:auto">One chapter per framework part</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;align-content:space-between;flex:1;min-height:0;gap:0.14in 0.3in">
+        <div style="display:flex;gap:9px;align-items:baseline"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;color:#9a94ad;width:18px">4</span><div style="flex:1"><div data-k="ch4" data-ph="Chapter title" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.3"></div><div data-k="ch4_note" data-ph="The step it teaches" contenteditable="true" style="font-size:11px;line-height:1.55;color:#2f3556;min-height:0.34in;border-bottom:1px solid #e4ded9;padding-bottom:5px"></div></div></div>
+        <div style="display:flex;gap:9px;align-items:baseline"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;color:#9a94ad;width:18px">5</span><div style="flex:1"><div data-k="ch5" data-ph="Chapter title" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.3"></div><div data-k="ch5_note" data-ph="The step it teaches" contenteditable="true" style="font-size:11px;line-height:1.55;color:#2f3556;min-height:0.34in;border-bottom:1px solid #e4ded9;padding-bottom:5px"></div></div></div>
+        <div style="display:flex;gap:9px;align-items:baseline"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;color:#9a94ad;width:18px">6</span><div style="flex:1"><div data-k="ch6" data-ph="Chapter title" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.3"></div><div data-k="ch6_note" data-ph="The step it teaches" contenteditable="true" style="font-size:11px;line-height:1.55;color:#2f3556;min-height:0.34in;border-bottom:1px solid #e4ded9;padding-bottom:5px"></div></div></div>
+        <div style="display:flex;gap:9px;align-items:baseline"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;color:#9a94ad;width:18px">7</span><div style="flex:1"><div data-k="ch7" data-ph="Chapter title" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.3"></div><div data-k="ch7_note" data-ph="The step it teaches" contenteditable="true" style="font-size:11px;line-height:1.55;color:#2f3556;min-height:0.34in;border-bottom:1px solid #e4ded9;padding-bottom:5px"></div></div></div>
+        <div style="display:flex;gap:9px;align-items:baseline"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;color:#9a94ad;width:18px">8</span><div style="flex:1"><div data-k="ch8" data-ph="Chapter title" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.3"></div><div data-k="ch8_note" data-ph="The step it teaches" contenteditable="true" style="font-size:11px;line-height:1.55;color:#2f3556;min-height:0.34in;border-bottom:1px solid #e4ded9;padding-bottom:5px"></div></div></div>
+        <div style="display:flex;gap:9px;align-items:baseline"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;color:#9a94ad;width:18px">9</span><div style="flex:1"><div data-k="ch9" data-ph="Chapter title" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.3"></div><div data-k="ch9_note" data-ph="The step it teaches" contenteditable="true" style="font-size:11px;line-height:1.55;color:#2f3556;min-height:0.34in;border-bottom:1px solid #e4ded9;padding-bottom:5px"></div></div></div>
+        <div style="display:flex;gap:9px;align-items:baseline"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;color:#9a94ad;width:18px">10</span><div style="flex:1"><div data-k="ch10" data-ph="Chapter title" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.3"></div><div data-k="ch10_note" data-ph="The step it teaches" contenteditable="true" style="font-size:11px;line-height:1.55;color:#2f3556;min-height:0.34in;border-bottom:1px solid #e4ded9;padding-bottom:5px"></div></div></div>
+        <div style="display:flex;gap:9px;align-items:baseline"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;color:#c9c4d4;width:18px">11</span><div style="flex:1"><div data-k="ch11" data-ph="Extra chapter (optional)" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.3"></div><div data-k="ch11_note" data-ph="The step it teaches" contenteditable="true" style="font-size:11px;line-height:1.55;color:#2f3556;min-height:0.34in;border-bottom:1px solid #e4ded9;padding-bottom:5px"></div></div></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;gap:14px;align-items:baseline;background:#0D1654;color:#F7F3F0;padding:9px 12px">
+    <span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;white-space:nowrap">Conclusion</span>
+    <div data-k="outline_concl" data-ph-light="1" data-ph="Sum up. Send off. Ask for the review." contenteditable="true" style="font-size:12px;line-height:1.4;flex:1"></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>04</span></div>
+</section>
+
+<section class="page" data-screen-label="05 The Claim Test" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.2in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">05</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">THE CLAIM TEST</span></div>
+    <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#4a4f70">Score</span><span data-k="test_total" data-ph="00" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.75;color:#E2006A"></span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:22px;line-height:0.9;color:#9a94ad">/ 25</span></div>
+  </div>
+  <div style="display:grid;grid-template-columns:22px 1fr 0.62in 2.5in;gap:0 14px;align-items:start;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;border-bottom:1px solid #ddd7d2;padding-bottom:6px"><span></span><span>Question</span><span style="text-align:center">Score</span><span>Pass / fail note</span></div>
+  <div style="display:flex;flex-direction:column;gap:0;flex:1;min-height:0">
+    <div style="display:grid;grid-template-columns:22px 1fr 0.62in 2.5in;gap:0 14px;align-items:start;padding:11px 0;border-bottom:1px solid #e4ded9">
+      <span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:24px;line-height:0.8;color:#9a94ad">1</span>
+      <div><div data-k="q1" contenteditable="true" style="font-size:14.5px;font-weight:700;line-height:1.3">Does it name an enemy?</div><div data-k="q1_sub" contenteditable="true" style="font-size:11px;line-height:1.5;color:#2f3556;margin-top:3px">A belief the reader currently holds, not a competitor. Something they have to choose to fight before your solution makes sense.</div></div>
+      <div data-k="q1_score" data-ph="—" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:30px;line-height:0.9;text-align:center;color:#E2006A"></div>
+      <div data-k="q1_note" data-ph="Why it passes or fails" contenteditable="true" style="font-size:11px;line-height:1.5"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:22px 1fr 0.62in 2.5in;gap:0 14px;align-items:start;padding:11px 0;border-bottom:1px solid #e4ded9">
+      <span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:24px;line-height:0.8;color:#9a94ad">2</span>
+      <div><div data-k="q2" contenteditable="true" style="font-size:14.5px;font-weight:700;line-height:1.3">Does it hand the reader new language?</div><div data-k="q2_sub" contenteditable="true" style="font-size:11px;line-height:1.5;color:#2f3556;margin-top:3px">Terms they'll repeat. If they finish the book using the same words they started with, no ground was broken.</div></div>
+      <div data-k="q2_score" data-ph="—" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:30px;line-height:0.9;text-align:center;color:#E2006A"></div>
+      <div data-k="q2_note" data-ph="Why it passes or fails" contenteditable="true" style="font-size:11px;line-height:1.5"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:22px 1fr 0.62in 2.5in;gap:0 14px;align-items:start;padding:11px 0;border-bottom:1px solid #e4ded9">
+      <span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:24px;line-height:0.8;color:#9a94ad">3</span>
+      <div><div data-k="q3" contenteditable="true" style="font-size:14.5px;font-weight:700;line-height:1.3">Does the first quarter argue against the common POV?</div><div data-k="q3_sub" data-ph="…finish this line" contenteditable="true" style="font-size:11px;line-height:1.5;color:#2f3556;margin-top:3px">Not context. An argument someone could</div></div>
+      <div data-k="q3_score" data-ph="—" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:30px;line-height:0.9;text-align:center;color:#E2006A"></div>
+      <div data-k="q3_note" data-ph="Why it passes or fails" contenteditable="true" style="font-size:11px;line-height:1.5"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:22px 1fr 0.62in 2.5in;gap:0 14px;align-items:start;padding:11px 0;border-bottom:1px solid #e4ded9">
+      <span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:24px;line-height:0.8;color:#9a94ad">4</span>
+      <div><div style="display:flex;align-items:baseline;gap:8px"><div data-k="q4" contenteditable="true" style="font-size:14.5px;font-weight:700;line-height:1.3">Would the reader say it out loud?</div><span style="font-size:7.5px;letter-spacing:0.16em;font-weight:700;color:#fff;background:#E2006A;padding:2px 5px;white-space:nowrap">DRAFT</span></div><div data-k="q4_sub" contenteditable="true" style="font-size:11px;line-height:1.5;color:#2f3556;margin-top:3px">Repeatable in one sentence, unprompted, to someone who has not read the book.</div></div>
+      <div data-k="q4_score" data-ph="—" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:30px;line-height:0.9;text-align:center;color:#E2006A"></div>
+      <div data-k="q4_note" data-ph="Why it passes or fails" contenteditable="true" style="font-size:11px;line-height:1.5"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:22px 1fr 0.62in 2.5in;gap:0 14px;align-items:start;padding:11px 0;border-bottom:1px solid #e4ded9">
+      <span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:24px;line-height:0.8;color:#9a94ad">5</span>
+      <div><div style="display:flex;align-items:baseline;gap:8px"><div data-k="q5" contenteditable="true" style="font-size:14.5px;font-weight:700;line-height:1.3">Does it still hold in five years?</div><span style="font-size:7.5px;letter-spacing:0.16em;font-weight:700;color:#fff;background:#E2006A;padding:2px 5px;white-space:nowrap">DRAFT</span></div><div data-k="q5_sub" contenteditable="true" style="font-size:11px;line-height:1.5;color:#2f3556;margin-top:3px">A claim tied to a tactic expires. A claim tied to a shift compounds.</div></div>
+      <div data-k="q5_score" data-ph="—" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:30px;line-height:0.9;text-align:center;color:#E2006A"></div>
+      <div data-k="q5_note" data-ph="Why it passes or fails" contenteditable="true" style="font-size:11px;line-height:1.5"></div>
+    </div>
+    <div style="margin-top:auto;background:#0D1654;color:#F7F3F0;padding:0.16in 0.24in;display:flex;gap:16px;align-items:baseline">
+      <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;white-space:nowrap">The verdict</div>
+      <div data-k="test_verdict" data-ph-light="1" data-ph="What has to change before the book is written" contenteditable="true" style="font-size:13px;line-height:1.45;font-weight:500;flex:1"></div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>05</span></div>
+</section>
+
+<section class="page" data-screen-label="06 Language Bank" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.22in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">06</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">LANGUAGE BANK</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Words they own</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.18in">
+    <div style="background:#0D1654;color:#F7F3F0;padding:14px 16px"><div style="font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Enemy name</div><div data-k="lb_enemy" data-ph-light="1" data-ph="What they call it" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:30px;line-height:0.95"></div></div>
+    <div style="background:#0D1654;color:#F7F3F0;padding:14px 16px"><div style="font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Framework name</div><div data-k="lb_framework" data-ph-light="1" data-ph="What they call it" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:30px;line-height:0.95"></div></div>
+    <div style="background:#E2006A;color:#fff;padding:14px 16px"><div style="font-size:8.5px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#fff;margin-bottom:6px">Reader label</div><div data-k="lb_reader" data-ph-light="1" data-ph="What they call the reader" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:30px;line-height:0.95"></div></div>
+  </div>
+  <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;border-bottom:1px solid #ddd7d2;padding-bottom:6px">Coined terms — up to ten</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 0.34in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column">
+      <div style="display:flex;gap:11px;align-items:baseline;padding:8px 0;border-bottom:1px solid #e4ded9"><span style="font-size:10px;font-weight:700;color:#9a94ad;width:16px">01</span><div style="flex:1"><div data-k="t1" data-ph="Term" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.25"></div><div data-k="t1_def" data-ph="What it means" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div></div>
+      <div style="display:flex;gap:11px;align-items:baseline;padding:8px 0;border-bottom:1px solid #e4ded9"><span style="font-size:10px;font-weight:700;color:#9a94ad;width:16px">02</span><div style="flex:1"><div data-k="t2" data-ph="Term" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.25"></div><div data-k="t2_def" data-ph="What it means" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div></div>
+      <div style="display:flex;gap:11px;align-items:baseline;padding:8px 0;border-bottom:1px solid #e4ded9"><span style="font-size:10px;font-weight:700;color:#9a94ad;width:16px">03</span><div style="flex:1"><div data-k="t3" data-ph="Term" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.25"></div><div data-k="t3_def" data-ph="What it means" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div></div>
+      <div style="display:flex;gap:11px;align-items:baseline;padding:8px 0;border-bottom:1px solid #e4ded9"><span style="font-size:10px;font-weight:700;color:#9a94ad;width:16px">04</span><div style="flex:1"><div data-k="t4" data-ph="Term" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.25"></div><div data-k="t4_def" data-ph="What it means" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div></div>
+      <div style="display:flex;gap:11px;align-items:baseline;padding:8px 0;border-bottom:1px solid #e4ded9"><span style="font-size:10px;font-weight:700;color:#9a94ad;width:16px">05</span><div style="flex:1"><div data-k="t5" data-ph="Term" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.25"></div><div data-k="t5_def" data-ph="What it means" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div></div>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <div style="display:flex;gap:11px;align-items:baseline;padding:8px 0;border-bottom:1px solid #e4ded9"><span style="font-size:10px;font-weight:700;color:#9a94ad;width:16px">06</span><div style="flex:1"><div data-k="t6" data-ph="Term" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.25"></div><div data-k="t6_def" data-ph="What it means" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div></div>
+      <div style="display:flex;gap:11px;align-items:baseline;padding:8px 0;border-bottom:1px solid #e4ded9"><span style="font-size:10px;font-weight:700;color:#9a94ad;width:16px">07</span><div style="flex:1"><div data-k="t7" data-ph="Term" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.25"></div><div data-k="t7_def" data-ph="What it means" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div></div>
+      <div style="display:flex;gap:11px;align-items:baseline;padding:8px 0;border-bottom:1px solid #e4ded9"><span style="font-size:10px;font-weight:700;color:#9a94ad;width:16px">08</span><div style="flex:1"><div data-k="t8" data-ph="Term" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.25"></div><div data-k="t8_def" data-ph="What it means" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div></div>
+      <div style="display:flex;gap:11px;align-items:baseline;padding:8px 0;border-bottom:1px solid #e4ded9"><span style="font-size:10px;font-weight:700;color:#9a94ad;width:16px">09</span><div style="flex:1"><div data-k="t9" data-ph="Term" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.25"></div><div data-k="t9_def" data-ph="What it means" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div></div>
+      <div style="display:flex;gap:11px;align-items:baseline;padding:8px 0;border-bottom:1px solid #e4ded9"><span style="font-size:10px;font-weight:700;color:#9a94ad;width:16px">10</span><div style="flex:1"><div data-k="t10" data-ph="Term" contenteditable="true" style="font-size:13.5px;font-weight:700;line-height:1.25"></div><div data-k="t10_def" data-ph="What it means" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div></div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>06</span></div>
+</section>
+
+<section class="page" data-screen-label="07 Amazon Setup" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.2in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">07</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">AMAZON SETUP</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Categories · Keywords · Description · Comps</div>
+  </div>
+  <div style="display:grid;grid-template-columns:3.5in 1fr;gap:0.34in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:0.18in;min-height:0">
+      <div>
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:7px">Three categories</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;gap:9px;background:#fff;border:1px solid #ddd7d2;padding:8px 10px"><span style="font-size:10px;font-weight:700;color:#E2006A">1</span><div data-k="cat1" data-ph="Kindle Books > … > …" contenteditable="true" style="font-size:11px;line-height:1.4;flex:1"></div></div>
+          <div style="display:flex;gap:9px;background:#fff;border:1px solid #ddd7d2;padding:8px 10px"><span style="font-size:10px;font-weight:700;color:#E2006A">2</span><div data-k="cat2" data-ph="Kindle Books > … > …" contenteditable="true" style="font-size:11px;line-height:1.4;flex:1"></div></div>
+          <div style="display:flex;gap:9px;background:#fff;border:1px solid #ddd7d2;padding:8px 10px"><span style="font-size:10px;font-weight:700;color:#E2006A">3</span><div data-k="cat3" data-ph="Kindle Books > … > …" contenteditable="true" style="font-size:11px;line-height:1.4;flex:1"></div></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:7px">Seven keywords</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div data-k="kw1" data-ph="Keyword 1" contenteditable="true" style="font-size:11px;font-weight:600;border-bottom:1px solid #c4beb9;padding-bottom:4px"></div>
+          <div data-k="kw2" data-ph="Keyword 2" contenteditable="true" style="font-size:11px;font-weight:600;border-bottom:1px solid #c4beb9;padding-bottom:4px"></div>
+          <div data-k="kw3" data-ph="Keyword 3" contenteditable="true" style="font-size:11px;font-weight:600;border-bottom:1px solid #c4beb9;padding-bottom:4px"></div>
+          <div data-k="kw4" data-ph="Keyword 4" contenteditable="true" style="font-size:11px;font-weight:600;border-bottom:1px solid #c4beb9;padding-bottom:4px"></div>
+          <div data-k="kw5" data-ph="Keyword 5" contenteditable="true" style="font-size:11px;font-weight:600;border-bottom:1px solid #c4beb9;padding-bottom:4px"></div>
+          <div data-k="kw6" data-ph="Keyword 6" contenteditable="true" style="font-size:11px;font-weight:600;border-bottom:1px solid #c4beb9;padding-bottom:4px"></div>
+          <div data-k="kw7" data-ph="Keyword 7" contenteditable="true" style="font-size:11px;font-weight:600;border-bottom:1px solid #c4beb9;padding-bottom:4px"></div>
+        </div>
+      </div>
+      <div style="margin-top:auto">
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:7px">Comp authors</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px 0.2in">
+          <div data-k="comp1" data-ph="Author" contenteditable="true" style="font-size:11.5px;font-weight:600"></div>
+          <div data-k="comp2" data-ph="Author" contenteditable="true" style="font-size:11.5px;font-weight:600"></div>
+          <div data-k="comp3" data-ph="Author" contenteditable="true" style="font-size:11.5px;font-weight:600"></div>
+          <div data-k="comp4" data-ph="Author" contenteditable="true" style="font-size:11.5px;font-weight:600"></div>
+          <div data-k="comp5" data-ph="Author" contenteditable="true" style="font-size:11.5px;font-weight:600"></div>
+          <div data-k="comp6" data-ph="Author" contenteditable="true" style="font-size:11.5px;font-weight:600"></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid #ddd7d2;border-left:5px solid #E2006A;padding:0.24in 0.26in;display:flex;flex-direction:column;min-height:0">
+      <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:9px">Book description</div>
+      <div data-k="amz_desc" data-ph="Open with the question the reader is already asking. Then the promise, the proof, the bullets, the buy line." contenteditable="true" style="font-size:11.5px;line-height:1.6;flex:1;overflow:hidden"></div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>07</span></div>
+</section>
+
+<section class="page" data-screen-label="08 BookBub Ads" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.22in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">08</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">BOOKBUB AD CONCEPTS</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Launch assets · 1 of 3</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.24in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:9px;min-height:0"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Concept A</div><div style="flex:1;min-height:0"><image-slot id="cbb-bb-1" shape="rect" fit="contain" placeholder="Drop ad A"></image-slot></div><div data-k="bb1_head" data-ph="Ad headline" contenteditable="true" style="font-size:13px;font-weight:700;line-height:1.3"></div><div data-k="bb1_note" data-ph="Audience and angle" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+    <div style="display:flex;flex-direction:column;gap:9px;min-height:0"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Concept B</div><div style="flex:1;min-height:0"><image-slot id="cbb-bb-2" shape="rect" fit="contain" placeholder="Drop ad B"></image-slot></div><div data-k="bb2_head" data-ph="Ad headline" contenteditable="true" style="font-size:13px;font-weight:700;line-height:1.3"></div><div data-k="bb2_note" data-ph="Audience and angle" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+    <div style="display:flex;flex-direction:column;gap:9px;min-height:0"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Concept C</div><div style="flex:1;min-height:0"><image-slot id="cbb-bb-3" shape="rect" fit="contain" placeholder="Drop ad C"></image-slot></div><div data-k="bb3_head" data-ph="Ad headline" contenteditable="true" style="font-size:13px;font-weight:700;line-height:1.3"></div><div data-k="bb3_note" data-ph="Audience and angle" contenteditable="true" style="font-size:10.5px;line-height:1.45;color:#2f3556"></div></div>
+  </div>
+  <div style="display:flex;gap:0.4in;border-top:1px solid #ddd7d2;padding-top:10px">
+    <div style="flex:1"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:4px">Target categories</div><div data-k="bb_cats" data-ph="BookBub categories to target" contenteditable="true" style="font-size:11px;line-height:1.45"></div></div>
+    <div style="flex:1"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:4px">Target authors</div><div data-k="bb_authors" data-ph="Authors to target" contenteditable="true" style="font-size:11px;line-height:1.45"></div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>08</span></div>
+</section>
+
+<section class="page" data-screen-label="08 Cover Mockups" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.22in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">08</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">DIGITAL COVER MOCKUPS</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Launch assets · 2 of 3</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:0.2in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:6px;min-height:0"><div style="flex:1;min-height:0"><image-slot id="cbb-mock-1" shape="rect" fit="contain" placeholder="Mockup 1"></image-slot></div><div data-k="mock1" data-ph="Caption" contenteditable="true" style="font-size:9.5px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:#4a4f70"></div></div>
+    <div style="display:flex;flex-direction:column;gap:6px;min-height:0"><div style="flex:1;min-height:0"><image-slot id="cbb-mock-2" shape="rect" fit="contain" placeholder="Mockup 2"></image-slot></div><div data-k="mock2" data-ph="Caption" contenteditable="true" style="font-size:9.5px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:#4a4f70"></div></div>
+    <div style="display:flex;flex-direction:column;gap:6px;min-height:0"><div style="flex:1;min-height:0"><image-slot id="cbb-mock-3" shape="rect" fit="contain" placeholder="Mockup 3"></image-slot></div><div data-k="mock3" data-ph="Caption" contenteditable="true" style="font-size:9.5px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:#4a4f70"></div></div>
+    <div style="display:flex;flex-direction:column;gap:6px;min-height:0"><div style="flex:1;min-height:0"><image-slot id="cbb-mock-4" shape="rect" fit="contain" placeholder="Mockup 4"></image-slot></div><div data-k="mock4" data-ph="Caption" contenteditable="true" style="font-size:9.5px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:#4a4f70"></div></div>
+    <div style="display:flex;flex-direction:column;gap:6px;min-height:0"><div style="flex:1;min-height:0"><image-slot id="cbb-mock-5" shape="rect" fit="contain" placeholder="Mockup 5"></image-slot></div><div data-k="mock5" data-ph="Caption" contenteditable="true" style="font-size:9.5px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:#4a4f70"></div></div>
+    <div style="display:flex;flex-direction:column;gap:6px;min-height:0"><div style="flex:1;min-height:0"><image-slot id="cbb-mock-6" shape="rect" fit="contain" placeholder="Mockup 6"></image-slot></div><div data-k="mock6" data-ph="Caption" contenteditable="true" style="font-size:9.5px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:#4a4f70"></div></div>
+    <div style="grid-column:span 2;background:#0D1654;color:#F7F3F0;padding:0.2in 0.24in;display:flex;flex-direction:column"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:7px">Where these get used</div><div data-k="mock_note" data-ph-light="1" data-ph="Placements: site, email header, social, podcast one-sheet…" contenteditable="true" style="font-size:12px;line-height:1.5;font-weight:500"></div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>08</span></div>
+</section>
+
+<section class="page" data-screen-label="08 Kindle and Paperback" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.22in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">08</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">KINDLE COVER &amp; PAPERBACK WRAP</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Launch assets · 3 of 3</div>
+  </div>
+  <div style="display:grid;grid-template-columns:2.45in 1fr;gap:0.42in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:9px;min-height:0">
+      <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Kindle cover (front) — 1600 × 2560</div>
+      <div style="width:100%;aspect-ratio:1600/2560;position:relative"><image-slot id="cbb-kindle" shape="rect" placeholder="Drop the Kindle cover"></image-slot></div>
+      <div style="margin-top:auto;display:flex;gap:0.24in;border-top:1px solid #ddd7d2;padding-top:8px">
+        <div><div style="font-size:8.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#4a4f70;margin-bottom:3px">Trim</div><div data-k="trim" data-ph="6×9 / 5×8" contenteditable="true" style="font-size:13px;font-weight:700"></div></div>
+        <div><div style="font-size:8.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#4a4f70;margin-bottom:3px">Finish</div><div data-k="finish" data-ph="Matte / gloss" contenteditable="true" style="font-size:13px;font-weight:700"></div></div>
+        <div><div style="font-size:8.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#4a4f70;margin-bottom:3px">Pages</div><div data-k="pagecount" data-ph="000" contenteditable="true" style="font-size:13px;font-weight:700"></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:9px;min-height:0">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Paperback wrap — back · spine · front</div><div data-k="spine" data-ph="Spine width" contenteditable="true" style="font-size:10px;font-weight:600;color:#4a4f70"></div></div>
+      <div style="flex:1;min-height:0"><image-slot id="cbb-wrap" shape="rect" fit="contain" placeholder="Drop the full paperback wrap"></image-slot></div>
+      <div style="display:flex;gap:0.3in;border-top:1px solid #ddd7d2;padding-top:8px">
+        <div style="flex:1"><div style="font-size:8.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#4a4f70;margin-bottom:3px">Back cover copy</div><div data-k="back_copy" data-ph="The short version of the claim" contenteditable="true" style="font-size:10.5px;line-height:1.45"></div></div>
+        <div style="flex:1"><div style="font-size:8.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#4a4f70;margin-bottom:3px">Author bio line</div><div data-k="bio_line" data-ph="One sentence, credentials that matter" contenteditable="true" style="font-size:10.5px;line-height:1.45"></div></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>08</span></div>
+</section>
+
+<section class="page" data-screen-label="09 What to Write Next" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.22in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">09</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">WHAT TO WRITE NEXT</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Mini Book Writing System · 1 of 2</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:0.36in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:0.2in">
+      <div style="font-size:22px;line-height:1.35;font-weight:700;text-wrap:pretty">Your outline is done. Now you just fill the gaps.</div>
+      <div style="font-size:12.5px;line-height:1.6;color:#2f3556">Day 1 is finished. The promise, the outline, the key points, the sub-points are all in this blueprint. You have no blank page ahead of you.</div>
+      <div style="font-size:12.5px;line-height:1.6;color:#2f3556">What's left is connecting dots you already placed.</div>
+      <div style="margin-top:auto;background:#0D1654;color:#F7F3F0;padding:0.22in 0.24in">
+        <div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.9;margin-bottom:12px">THE 7-DAY SCHEDULE</div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div><div style="font-size:12.5px;font-weight:700">Day 1 — Foundation ✓ Done in your blueprint</div><div style="font-size:11px;line-height:1.5;color:rgba(247,243,240,.9)">Title, subtitle, cover direction, POWER promise, outline, key points, sub-points.</div></div>
+          <div><div style="font-size:12.5px;font-weight:700;color:#fff">Days 2–6 — Write</div><div style="font-size:11px;line-height:1.5;color:rgba(247,243,240,.9)">1,500 words a day. Two to three hours.</div></div>
+          <div><div style="font-size:12.5px;font-weight:700;color:#fff">Day 7 — Finish and polish</div><div style="font-size:11px;line-height:1.5;color:rgba(247,243,240,.9)">Fill gaps, smooth transitions, light edit, add the lead magnet.</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.14in;border-left:1px solid #ddd7d2;padding-left:0.3in">
+      <div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.9;color:#E2006A">HOW TO CONNECT THE DOTS</div>
+      <div style="font-size:12px;line-height:1.55;color:#2f3556">Open the outline. Find today's chapter. Look at key point one and its sub-points.</div>
+      <div style="font-size:12px;line-height:1.55;color:#2f3556">Type the opening sentence. Then explain the sub-point like you'd explain it out loud to one person who asked.</div>
+      <div style="font-size:12px;line-height:1.55;color:#2f3556">When you finish a sub-point, move to the next. When you finish the key point, move to the next. Three key points and the chapter is done.</div>
+      <div style="font-size:12px;line-height:1.55;font-weight:700">You are never writing from nothing. You're expanding a point that's already written down.</div>
+      <div style="font-size:12px;line-height:1.55;color:#2f3556">When you stall, switch to voice. Talk the section out loud into voice-to-text, then clean it up. You already know this material. The problem is typing, not thinking.</div>
+      <div style="font-size:12px;line-height:1.55;color:#2f3556">Don't edit while you write. Day 7 is for editing. Days 2 through 6 are for words on the page.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.12in;border-left:1px solid #ddd7d2;padding-left:0.3in">
+      <div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.9;color:#E2006A">GUARANTEE THE DRAFT GETS DONE</div>
+      <div style="font-size:12px;line-height:1.55;color:#2f3556">97% of people who start a book never finish it. These are the five things that put you in the other 3%.</div>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div><span style="font-size:12px;font-weight:700">Set a time.</span> <span style="font-size:12px;line-height:1.5;color:#2f3556">Same time every day, written down. A plan you didn't schedule isn't a plan.</span></div>
+        <div><span style="font-size:12px;font-weight:700">Take the early hours.</span> <span style="font-size:12px;line-height:1.5;color:#2f3556">Only 8% of Americans are awake by 5am. Nobody needs anything from you at 5:30.</span></div>
+        <div><span style="font-size:12px;font-weight:700">Thirty minutes still works.</span> <span style="font-size:12px;line-height:1.5;color:#2f3556">It won't be seven days. It'll be a few months. The book still gets written.</span></div>
+        <div><span style="font-size:12px;font-weight:700">Let your subconscious work.</span> <span style="font-size:12px;line-height:1.5;color:#2f3556">Once the outline exists, your brain keeps solving it while you eat, drive, and sleep. That's why Day 1 mattered.</span></div>
+        <div><span style="font-size:12px;font-weight:700">Announce it.</span> <span style="font-size:12px;line-height:1.5;color:#2f3556">Post that you're writing it. Name the finish date. Post updates. Public commitment finishes books that private intentions don't.</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>09</span></div>
+</section>
+
+<section class="page" data-screen-label="09 Day 7 and Word Count" style="position:relative;background:#F7F3F0;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.22in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">09</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:42px;line-height:0.75;letter-spacing:0.015em">FINISHING THE DRAFT</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Mini Book Writing System · 2 of 2</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:0.4in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:0.18in">
+      <div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:30px;line-height:0.9;color:#E2006A">DAY 7 — THREE THINGS THAT FINISH IT</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.2in">
+        <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #E2006A;padding:16px 15px"><div style="font-size:15px;font-weight:700;line-height:1.25;margin-bottom:7px">Introduction</div><div style="font-size:12px;line-height:1.55;color:#2f3556">Person. Promise. Preview. Who this is for, what you're promising, what's coming.</div></div>
+        <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #E2006A;padding:16px 15px"><div style="font-size:15px;font-weight:700;line-height:1.25;margin-bottom:7px">Conclusion</div><div style="font-size:12px;line-height:1.55;color:#2f3556">Sum up. Send off. Ask for the review.</div></div>
+        <div style="background:#fff;border:1px solid #ddd7d2;border-top:5px solid #E2006A;padding:16px 15px"><div style="font-size:15px;font-weight:700;line-height:1.25;margin-bottom:7px">Lead magnet</div><div style="font-size:12px;line-height:1.55;color:#2f3556">Workbook, video version, or templates. Something at the back that turns a reader into a contact.</div></div>
+      </div>
+      <div style="margin-top:auto;display:flex;gap:0.3in;align-items:flex-end;border-top:1px solid #ddd7d2;padding-top:0.2in">
+        <div style="flex:1">
+          <div style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:30px;line-height:0.9;color:#E2006A;margin-bottom:10px">WORD COUNT</div>
+          <div style="font-size:13px;line-height:1.7">1,500 words a day × 5 days = 7,500<br>Plus intro, conclusion, and Day 7 fill = 10,000+</div>
+          <div style="font-size:15px;font-weight:700;margin-top:8px">That's a Mini Book.</div>
+        </div>
+        <div style="width:2.6in;border:2px solid #0D1654;padding:0.18in 0.2in">
+          <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Writing window</div>
+          <div data-k="write_window" data-ph="Time of day, every day" contenteditable="true" style="font-size:14px;font-weight:700"></div>
+          <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin:11px 0 6px">Finish date, announced</div>
+          <div data-k="finish_date" data-ph="Date" contenteditable="true" style="font-size:14px;font-weight:700"></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#E2006A;color:#fff;padding:0.28in 0.3in;display:flex;flex-direction:column;min-height:0">
+      <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#fff;margin-bottom:10px">First chapter assignment</div>
+      <div data-k="assignment_title" data-ph-light="1" data-ph="Chapter to write first" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:36px;line-height:0.95;margin-bottom:10px"></div>
+      <div data-k="assignment_brief" data-ph-light="1" data-ph="What it has to do, the word count, and the deadline" contenteditable="true" style="font-size:12.5px;line-height:1.6;font-weight:500;flex:1;overflow:hidden"></div>
+      <div style="border-top:1px solid rgba(255,255,255,.6);padding-top:11px;margin-top:11px">
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;margin-bottom:5px">Due back to Chris</div>
+        <div data-k="due" data-ph-light="1" data-ph="Date" contenteditable="true" style="font-size:17px;font-weight:700"></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #ddd7d2;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>09</span></div>
+</section>
+
+<section class="page" data-screen-label="Chapter 1 outline" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">CH 01</span><div data-k="ch1" data-ph="Chapter title" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.8;letter-spacing:0.01em"></div></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Argument · 3 points × 3 sub-points</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 1</span></div><div data-k="c1_p1" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c1_p1s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c1_p1s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c1_p1s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 2</span></div><div data-k="c1_p2" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c1_p2s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c1_p2s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c1_p2s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 3</span></div><div data-k="c1_p3" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c1_p3s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c1_p3s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c1_p3s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:0.3in;border-top:2px solid #0D1654;padding-top:12px"><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Chapter promise</div><div data-k="c1_promise" data-ph="What the reader can do or believe by the end of this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Notes, stories &amp; examples</div><div data-k="c1_notes" data-ph="Stories, data, examples, quotes — anything that belongs in this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>CH 01</span></div>
+</section>
+
+<section class="page" data-screen-label="Chapter 2 outline" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">CH 02</span><div data-k="ch2" data-ph="Chapter title" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.8;letter-spacing:0.01em"></div></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Argument · 3 points × 3 sub-points</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 1</span></div><div data-k="c2_p1" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c2_p1s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c2_p1s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c2_p1s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 2</span></div><div data-k="c2_p2" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c2_p2s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c2_p2s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c2_p2s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 3</span></div><div data-k="c2_p3" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c2_p3s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c2_p3s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c2_p3s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:0.3in;border-top:2px solid #0D1654;padding-top:12px"><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Chapter promise</div><div data-k="c2_promise" data-ph="What the reader can do or believe by the end of this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Notes, stories &amp; examples</div><div data-k="c2_notes" data-ph="Stories, data, examples, quotes — anything that belongs in this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>CH 02</span></div>
+</section>
+
+<section class="page" data-screen-label="Chapter 3 outline" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">CH 03</span><div data-k="ch3" data-ph="Chapter title" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.8;letter-spacing:0.01em"></div></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Argument · 3 points × 3 sub-points</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 1</span></div><div data-k="c3_p1" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c3_p1s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c3_p1s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c3_p1s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 2</span></div><div data-k="c3_p2" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c3_p2s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c3_p2s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c3_p2s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 3</span></div><div data-k="c3_p3" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c3_p3s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c3_p3s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c3_p3s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:0.3in;border-top:2px solid #0D1654;padding-top:12px"><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Chapter promise</div><div data-k="c3_promise" data-ph="What the reader can do or believe by the end of this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Notes, stories &amp; examples</div><div data-k="c3_notes" data-ph="Stories, data, examples, quotes — anything that belongs in this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>CH 03</span></div>
+</section>
+
+<section class="page" data-screen-label="Chapter 4 outline" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">CH 04</span><div data-k="ch4" data-ph="Chapter title" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.8;letter-spacing:0.01em"></div></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Playbook · 3 points × 3 sub-points</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 1</span></div><div data-k="c4_p1" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c4_p1s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c4_p1s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c4_p1s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 2</span></div><div data-k="c4_p2" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c4_p2s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c4_p2s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c4_p2s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 3</span></div><div data-k="c4_p3" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c4_p3s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c4_p3s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c4_p3s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:0.3in;border-top:2px solid #0D1654;padding-top:12px"><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Chapter promise</div><div data-k="c4_promise" data-ph="What the reader can do or believe by the end of this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Notes, stories &amp; examples</div><div data-k="c4_notes" data-ph="Stories, data, examples, quotes — anything that belongs in this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>CH 04</span></div>
+</section>
+
+<section class="page" data-screen-label="Chapter 5 outline" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">CH 05</span><div data-k="ch5" data-ph="Chapter title" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.8;letter-spacing:0.01em"></div></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Playbook · 3 points × 3 sub-points</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 1</span></div><div data-k="c5_p1" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c5_p1s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c5_p1s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c5_p1s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 2</span></div><div data-k="c5_p2" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c5_p2s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c5_p2s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c5_p2s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 3</span></div><div data-k="c5_p3" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c5_p3s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c5_p3s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c5_p3s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:0.3in;border-top:2px solid #0D1654;padding-top:12px"><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Chapter promise</div><div data-k="c5_promise" data-ph="What the reader can do or believe by the end of this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Notes, stories &amp; examples</div><div data-k="c5_notes" data-ph="Stories, data, examples, quotes — anything that belongs in this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>CH 05</span></div>
+</section>
+
+<section class="page" data-screen-label="Chapter 6 outline" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">CH 06</span><div data-k="ch6" data-ph="Chapter title" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.8;letter-spacing:0.01em"></div></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Playbook · 3 points × 3 sub-points</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 1</span></div><div data-k="c6_p1" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c6_p1s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c6_p1s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c6_p1s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 2</span></div><div data-k="c6_p2" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c6_p2s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c6_p2s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c6_p2s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 3</span></div><div data-k="c6_p3" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c6_p3s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c6_p3s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c6_p3s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:0.3in;border-top:2px solid #0D1654;padding-top:12px"><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Chapter promise</div><div data-k="c6_promise" data-ph="What the reader can do or believe by the end of this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Notes, stories &amp; examples</div><div data-k="c6_notes" data-ph="Stories, data, examples, quotes — anything that belongs in this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>CH 06</span></div>
+</section>
+
+<section class="page" data-screen-label="Chapter 7 outline" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">CH 07</span><div data-k="ch7" data-ph="Chapter title" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.8;letter-spacing:0.01em"></div></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Playbook · 3 points × 3 sub-points</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 1</span></div><div data-k="c7_p1" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c7_p1s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c7_p1s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c7_p1s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 2</span></div><div data-k="c7_p2" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c7_p2s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c7_p2s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c7_p2s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 3</span></div><div data-k="c7_p3" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c7_p3s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c7_p3s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c7_p3s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:0.3in;border-top:2px solid #0D1654;padding-top:12px"><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Chapter promise</div><div data-k="c7_promise" data-ph="What the reader can do or believe by the end of this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Notes, stories &amp; examples</div><div data-k="c7_notes" data-ph="Stories, data, examples, quotes — anything that belongs in this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>CH 07</span></div>
+</section>
+
+<section class="page" data-screen-label="Chapter 8 outline" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">CH 08</span><div data-k="ch8" data-ph="Chapter title" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.8;letter-spacing:0.01em"></div></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Playbook · 3 points × 3 sub-points</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 1</span></div><div data-k="c8_p1" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c8_p1s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c8_p1s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c8_p1s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 2</span></div><div data-k="c8_p2" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c8_p2s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c8_p2s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c8_p2s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 3</span></div><div data-k="c8_p3" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c8_p3s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c8_p3s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c8_p3s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:0.3in;border-top:2px solid #0D1654;padding-top:12px"><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Chapter promise</div><div data-k="c8_promise" data-ph="What the reader can do or believe by the end of this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Notes, stories &amp; examples</div><div data-k="c8_notes" data-ph="Stories, data, examples, quotes — anything that belongs in this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>CH 08</span></div>
+</section>
+
+<section class="page" data-screen-label="Chapter 9 outline" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">CH 09</span><div data-k="ch9" data-ph="Chapter title" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.8;letter-spacing:0.01em"></div></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Playbook · 3 points × 3 sub-points</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 1</span></div><div data-k="c9_p1" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c9_p1s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c9_p1s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c9_p1s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 2</span></div><div data-k="c9_p2" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c9_p2s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c9_p2s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c9_p2s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 3</span></div><div data-k="c9_p3" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c9_p3s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c9_p3s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c9_p3s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:0.3in;border-top:2px solid #0D1654;padding-top:12px"><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Chapter promise</div><div data-k="c9_promise" data-ph="What the reader can do or believe by the end of this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Notes, stories &amp; examples</div><div data-k="c9_notes" data-ph="Stories, data, examples, quotes — anything that belongs in this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>CH 09</span></div>
+</section>
+
+<section class="page" data-screen-label="Chapter 10 outline" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">CH 10</span><div data-k="ch10" data-ph="Chapter title" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.8;letter-spacing:0.01em"></div></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Playbook · 3 points × 3 sub-points</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 1</span></div><div data-k="c10_p1" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c10_p1s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c10_p1s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c10_p1s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 2</span></div><div data-k="c10_p2" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c10_p2s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c10_p2s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c10_p2s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 3</span></div><div data-k="c10_p3" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="c10_p3s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="c10_p3s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="c10_p3s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:0.3in;border-top:2px solid #0D1654;padding-top:12px"><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Chapter promise</div><div data-k="c10_promise" data-ph="What the reader can do or believe by the end of this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Notes, stories &amp; examples</div><div data-k="c10_notes" data-ph="Stories, data, examples, quotes — anything that belongs in this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>CH 10</span></div>
+</section>
+
+<section class="page" data-screen-label="The Conclusion" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.3in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;letter-spacing:0.01em">THE CONCLUSION</span><span style="font-size:13px;font-weight:600;color:#2f3556">Three moves, in order.</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">How it ends</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:14px"><div style="display:flex;align-items:baseline;gap:12px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:22px;line-height:0.8;color:#E2006A">01</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:32px;line-height:0.8">SUM UP</span></div>
+      <div style="font-size:14px;line-height:1.6">What they now know that they didn't when they started. Restate the argument in its shortest form.</div>
+      <div style="font-size:14px;line-height:1.6;color:#2f3556">Not a recap of every chapter. The one idea, said once more.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px"><div style="display:flex;align-items:baseline;gap:12px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:22px;line-height:0.8;color:#E2006A">02</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:32px;line-height:0.8">SEND OFF</span></div>
+      <div style="font-size:14px;line-height:1.6">Tell them what to do next. Point them at the first action, the next book, the program, the download. A reader who finishes and doesn't know what to do next does nothing.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px"><div style="display:flex;align-items:baseline;gap:12px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:22px;line-height:0.8;color:#E2006A">03</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:32px;line-height:0.8">ASK FOR THE REVIEW</span></div>
+      <div style="font-size:14px;line-height:1.6">Directly. Reviews are how the next reader decides whether the book is worth their time and money.</div>
+      <div style="font-size:14px;line-height:1.6;color:#2f3556">Ask once, plainly, and tell them where.</div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>CONCLUSION</span></div>
+</section>
+
+<section class="page" data-screen-label="Conclusion outline" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">CONC</span><div data-k="outline_concl" data-ph-light="1" data-ph="Chapter title" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.8;letter-spacing:0.01em"></div></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Sum up · Send off · Ask for the review</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 1</span></div><div data-k="cc_p1" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="cc_p1s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="cc_p1s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="cc_p1s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 2</span></div><div data-k="cc_p2" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="cc_p2s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="cc_p2s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="cc_p2s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 3</span></div><div data-k="cc_p3" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="cc_p3s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="cc_p3s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="cc_p3s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:0.3in;border-top:2px solid #0D1654;padding-top:12px"><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">The send-off</div><div data-k="cc_promise" data-ph="What the reader can do or believe by the end of this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Notes, stories &amp; examples</div><div data-k="cc_notes" data-ph="Stories, data, examples, quotes — anything that belongs in this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>CONC</span></div>
+</section>
+
+<section class="page" data-screen-label="The Introduction" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.3in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;letter-spacing:0.01em">THE INTRODUCTION</span><span style="font-size:13px;font-weight:600;color:#2f3556">Three moves, in order.</span></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">How it opens</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:14px"><div style="display:flex;align-items:baseline;gap:12px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:22px;line-height:0.8;color:#E2006A">01</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:32px;line-height:0.8">PERSON</span></div>
+      <div style="font-size:14px;line-height:1.6">Who this book is for, said plainly enough that the right reader recognizes themselves and the wrong one puts it down.</div>
+      <div style="font-size:14px;line-height:1.6;color:#2f3556">Name them. The founder sitting on a category nobody has heard of. The consultant explaining the same idea in every meeting. Whoever it is, say it so they know.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px"><div style="display:flex;align-items:baseline;gap:12px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:22px;line-height:0.8;color:#E2006A">02</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:32px;line-height:0.8">PROMISE</span></div>
+      <div style="font-size:14px;line-height:1.6">What they'll be able to do when they finish. This is your POWER Promise, stated in a paragraph instead of on the cover.</div>
+      <div style="font-size:14px;line-height:1.6;color:#2f3556">One transformation. Not a list of everything the book covers.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px"><div style="display:flex;align-items:baseline;gap:12px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:22px;line-height:0.8;color:#E2006A">03</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:32px;line-height:0.8">PREVIEW</span></div>
+      <div style="font-size:14px;line-height:1.6">What's coming and in what order. A short walk through the shape of the book so the reader knows where they're being taken.</div>
+      <div style="font-size:14px;line-height:1.6;color:#2f3556">Keep it to a few sentences. This is a map, not a summary.</div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>INTRODUCTION</span></div>
+</section>
+
+<section class="page" data-screen-label="Introduction outline" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;color:#E2006A">INTRO</span><div data-k="outline_intro" data-ph="Chapter title" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:40px;line-height:0.8;letter-spacing:0.01em"></div></div>
+    <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">Person · Promise · Preview</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 1</span></div><div data-k="ci_p1" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="ci_p1s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="ci_p1s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="ci_p1s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 2</span></div><div data-k="ci_p2" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="ci_p2s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="ci_p2s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="ci_p2s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-height:0"><div style="display:flex;align-items:baseline;gap:9px;border-bottom:3px solid #E2006A;padding-bottom:7px"><span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Key point 3</span></div><div data-k="ci_p3" data-ph="The point" contenteditable="true" style="font-size:16px;font-weight:700;line-height:1.4;min-height:0.62in;padding-bottom:6px"></div><div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0"><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">a</span><div data-k="ci_p3s1" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">b</span><div data-k="ci_p3s2" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div><div style="display:flex;gap:10px;flex:1;min-height:0"><span style="font-size:10px;font-weight:700;color:#9a94ad">c</span><div data-k="ci_p3s3" data-ph="Sub-point" contenteditable="true" style="font-size:12.5px;line-height:1.65;color:#2f3556;flex:1;min-height:0.55in;border-bottom:1px solid #e4ded9;padding-bottom:8px"></div></div></div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:0.3in;border-top:2px solid #0D1654;padding-top:12px"><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">The promise</div><div data-k="ci_promise" data-ph="What the reader can do or believe by the end of this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div><div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:6px">Notes, stories &amp; examples</div><div data-k="ci_notes" data-ph="Stories, data, examples, quotes — anything that belongs in this chapter" contenteditable="true" style="font-size:12.5px;line-height:1.6;min-height:0.5in"></div></div></div>
+  <div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>INTRO</span></div>
+</section>
+
+
+<section class="page" data-screen-label="Lead Magnet 1" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.17in"><div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px"><div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;letter-spacing:0.01em">YOUR LEAD MAGNET</span><span style="font-size:13px;font-weight:600;color:#2f3556">One page. Pick it, name it, deliver it.</span></div><div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">The back of the book · 1 of 2</div></div><div style="font-size:16px;font-weight:700;line-height:1.4">Your book gets their attention. Your lead magnet gets their email.</div><div style="display:flex;align-items:baseline;gap:12px;border-bottom:3px solid #E2006A;padding-bottom:6px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;line-height:0.8;color:#E2006A">STEP 1</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8">PICK THE FORMAT</span><span style="font-size:11px;line-height:1.4;color:#2f3556;margin-left:auto">Check what fits. Pick one to start.</span></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.3in;align-content:start"><div style="display:flex;flex-direction:column;gap:7px"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#0D1654;border-bottom:1px solid #ddd7d2;padding-bottom:5px;margin-bottom:2px">Fast to make</div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_a1" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Checklist</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_a2" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Worksheet</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_a3" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Templates</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_a4" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Swipe file</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_a5" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Cheat sheet</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_a6" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Resource list</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_a7" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Scripts</span></div></div><div style="display:flex;flex-direction:column;gap:7px"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#0D1654;border-bottom:1px solid #ddd7d2;padding-bottom:5px;margin-bottom:2px">Worth more effort</div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_b1" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Workbook</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_b2" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Guided journal</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_b3" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Mini course (video)</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_b4" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Email course</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_b5" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Slide deck / presentation version</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_b6" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Audiobook or audio version</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_b7" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Guided walkthrough video</span></div></div><div style="display:flex;flex-direction:column;gap:7px"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#0D1654;border-bottom:1px solid #ddd7d2;padding-bottom:5px;margin-bottom:2px">Interactive</div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_c1" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Quiz or assessment</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_c2" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Calculator</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_c3" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Scorecard</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_c4" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Diagnostic test</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_c5" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Small app or tool</span></div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_c6" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Notion or spreadsheet template</span></div></div><div style="display:flex;flex-direction:column;gap:0.16in"><div style="display:flex;flex-direction:column;gap:7px"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#0D1654;border-bottom:1px solid #ddd7d2;padding-bottom:5px;margin-bottom:2px">Bundle</div><div style="display:flex;gap:7px;align-items:baseline"><span data-k="lm_d1" data-chk="1" style="cursor:pointer;font-size:13px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11px;line-height:1.4">Starter Kit (combine three or four of the above)</span></div></div><div style="border:2px solid #0D1654;padding:0.14in 0.16in"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A;margin-bottom:5px">The one I'm starting with</div><div data-k="lm_pick" data-ph="Format" contenteditable="true" style="font-size:14px;font-weight:700;line-height:1.3"></div></div></div></div><div style="display:flex;align-items:baseline;gap:12px;border-bottom:3px solid #E2006A;padding-bottom:6px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;line-height:0.8;color:#E2006A">STEP 2</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8">FIND THE PROBLEM IT SOLVES</span><span style="font-size:11px;line-height:1.4;color:#2f3556;margin-left:auto">Start with the biggest problem your reader has. Break it into the smaller one that blocks them first.</span></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.3in;align-items:start;margin-top:auto"><div style="display:flex;flex-direction:column;gap:11px"><div style="display:flex;gap:10px;align-items:baseline"><span style="font-size:11px;font-weight:700;white-space:nowrap">Big problem:</span><div data-k="lm_big" data-ph="…" contenteditable="true" style="flex:1;font-size:12px;line-height:1.5;border-bottom:1px solid #b9b3ae;padding-bottom:4px"></div></div><div style="display:flex;gap:10px;align-items:baseline"><span style="font-size:11px;font-weight:700;white-space:nowrap">Sub-problem:</span><div data-k="lm_sub" data-ph="…" contenteditable="true" style="flex:1;font-size:12px;line-height:1.5;border-bottom:1px solid #b9b3ae;padding-bottom:4px"></div></div><div style="display:flex;gap:10px;align-items:baseline"><span style="font-size:11px;font-weight:700;white-space:nowrap">It solves:</span><div data-k="lm_solves" data-ph="…" contenteditable="true" style="flex:1;font-size:12px;line-height:1.5;border-bottom:1px solid #b9b3ae;padding-bottom:4px"></div></div></div><div style="display:flex;flex-direction:column;gap:9px"><div style="background:#F7F3F0;border:1px solid #ddd7d2;padding:0.13in 0.15in;font-size:10.5px;line-height:1.55"><span style="font-weight:700">Example:</span> Writing a book is overwhelming → I don't know how to start → 10 Book Ideas You Can Write in Just One Day</div><div style="font-size:11px;line-height:1.5;font-weight:700">It doesn't have to solve everything. It has to remove one roadblock.</div></div><div style="background:#0D1654;color:#F7F3F0;padding:0.16in 0.18in;font-size:11px;line-height:1.55">Put something at the back that turns a reader into a contact. A workbook, a video version, a set of templates.<br><br><span style="font-weight:700">Without it, the book ends. With it, the book starts a relationship.</span></div></div><div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>LEAD MAGNET</span></div></section>
+
+<section class="page" data-screen-label="Lead Magnet 2" style="position:relative;background:#ffffff;color:#0D1654;font-family:var(--font-sans,Montserrat),sans-serif;padding:0.6in 0.7in 0.5in;display:flex;flex-direction:column;gap:0.26in"><div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #0D1654;padding-bottom:9px"><div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:46px;line-height:0.75;letter-spacing:0.01em">YOUR LEAD MAGNET</span><span style="font-size:13px;font-weight:600;color:#2f3556">Test it, name it, deliver it.</span></div><div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;color:#4a4f70">The back of the book · 2 of 2</div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.44in;flex:1;min-height:0"><div style="display:flex;flex-direction:column;gap:0.22in"><div style="display:flex;flex-direction:column;gap:11px"><div style="display:flex;align-items:baseline;gap:11px;border-bottom:3px solid #E2006A;padding-bottom:6px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;line-height:0.8;color:#E2006A">STEP 3</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8">THE THREE-PART TEST</span></div><div style="display:flex;gap:8px;align-items:baseline"><span data-k="lm_t1" data-chk="1" style="cursor:pointer;font-size:14px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11.5px;line-height:1.45"><span style="font-weight:700">Specific reader.</span> They see it and say &ldquo;this is for me.&rdquo;</span></div><div style="display:flex;gap:8px;align-items:baseline"><span data-k="lm_t2" data-chk="1" style="cursor:pointer;font-size:14px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11.5px;line-height:1.45"><span style="font-weight:700">Real problem.</span> Something tangible they&rsquo;re stuck on.</span></div><div style="display:flex;gap:8px;align-items:baseline"><span data-k="lm_t3" data-chk="1" style="cursor:pointer;font-size:14px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11.5px;line-height:1.45"><span style="font-weight:700">Complete solution.</span> Solves that one thing fully, and leaves them hungry for the next.</span></div></div><div style="display:flex;flex-direction:column;gap:11px"><div style="display:flex;align-items:baseline;gap:11px;border-bottom:3px solid #E2006A;padding-bottom:6px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;line-height:0.8;color:#E2006A">STEP 4</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8">NAME IT</span></div><div style="font-size:11.5px;line-height:1.5;color:#2f3556">Exciting and clear about what it delivers. Both, not one.</div><div style="display:flex;gap:10px;align-items:baseline"><span style="font-size:11px;font-weight:700;white-space:nowrap">Name:</span><div data-k="lm_name" data-ph="…" contenteditable="true" style="flex:1;font-size:12px;line-height:1.5;border-bottom:1px solid #b9b3ae;padding-bottom:4px"></div></div><div style="font-size:10.5px;line-height:1.6;color:#2f3556"><span style="font-weight:700;color:#0D1654">Working examples:</span><br>5 Steps to Write Your First Mini Book Without Overthinking<br>Ultimate Book Launch Checklist<br>Mini Book Marketing Templates: Quick Start Kit for Authors</div></div></div><div style="display:flex;flex-direction:column;gap:0.22in"><div style="display:flex;flex-direction:column;gap:11px"><div style="display:flex;align-items:baseline;gap:11px;border-bottom:3px solid #E2006A;padding-bottom:6px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;line-height:0.8;color:#E2006A">STEP 5</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8">MAKE IT LOOK VALUABLE</span></div><div style="font-size:12px;line-height:1.6">Readers judge lead magnets the way they judge covers. A plain Word doc gets ignored.</div><div style="font-size:12px;line-height:1.6">Build it in Canva, with AI, or even hire a designer. Make it look valuable. Then make a 3D mockup so it feels like a thing instead of a file.</div><div style="font-size:11px;line-height:1.5;color:#2f3556"><span style="font-weight:700;color:#0D1654">Tools:</span> Canva, MockUp Shots, Placeit, Claude Design, ChatGPT, etc.</div></div><div style="display:flex;flex-direction:column;gap:11px"><div style="display:flex;align-items:baseline;gap:11px;border-bottom:3px solid #E2006A;padding-bottom:6px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;line-height:0.8;color:#E2006A">STEP 6</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8">DELIVER IT</span></div><div style="font-size:12px;line-height:1.6"><span style="font-weight:700">Starting out:</span> put your email address in the book. &ldquo;Email me and I&rsquo;ll send it.&rdquo; Personal, and you get to follow up by hand.</div><div style="font-size:12px;line-height:1.6"><span style="font-weight:700">Once it&rsquo;s working:</span> automate it with Kit, Mailchimp, or Substack.</div><div style="font-size:11.5px;font-weight:700;margin-top:2px">Either way:</div><div style="display:flex;gap:8px;align-items:baseline"><span data-k="lm_d1" data-chk="1" style="cursor:pointer;font-size:14px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11.5px;line-height:1.45">Arrives instantly</span></div><div style="display:flex;gap:8px;align-items:baseline"><span data-k="lm_d2" data-chk="1" style="cursor:pointer;font-size:14px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11.5px;line-height:1.45">Instructions are obvious</span></div><div style="display:flex;gap:8px;align-items:baseline"><span data-k="lm_d3" data-chk="1" style="cursor:pointer;font-size:14px;line-height:1.2;color:#E2006A;user-select:none">☐</span><span style="font-size:11.5px;line-height:1.45">You went through it yourself as a reader and fixed anything clunky</span></div></div></div><div style="display:flex;flex-direction:column;gap:0.22in"><div style="display:flex;flex-direction:column;gap:11px"><div style="display:flex;align-items:baseline;gap:11px;border-bottom:3px solid #E2006A;padding-bottom:6px"><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:20px;line-height:0.8;color:#E2006A">STEP 7</span><span style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:26px;line-height:0.8">PUT IT IN THE BOOK TWICE</span></div><div style="font-size:12px;line-height:1.6">Once after the introduction. Once in the conclusion.</div></div><div style="background:#E2006A;color:#fff;padding:0.22in 0.24in;display:flex;flex-direction:column;gap:9px"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700">What I&rsquo;m building</div><div data-k="lm_final" data-ph-light="1" data-ph="The lead magnet, named" contenteditable="true" style="font-family:var(--font-display,'Bebas Neue'),sans-serif;font-size:30px;line-height:0.95"></div><div data-k="lm_deliver" data-ph-light="1" data-ph="How it gets delivered, and by when" contenteditable="true" style="font-size:12px;line-height:1.55;font-weight:500;min-height:0.6in"></div></div><div style="margin-top:auto;display:flex;flex-direction:column;gap:8px"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:#E2006A">Mockup</div><div style="height:1.5in"><image-slot id="cbb-leadmagnet" shape="rect" fit="contain" placeholder="Drop the lead magnet mockup"></image-slot></div></div></div></div><div style="display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#5f6484;border-top:1px solid #e4ded9;padding-top:8px"><span>Chris Stanley · CategoryPublishing.com</span><span data-k="client" data-ph="Client name" contenteditable="true" style="color:#4a4f70;font-weight:600"></span><span>LEAD MAGNET</span></div></section>
+</doc-page>
+<script src="blueprint.js"></script>
+</body>
+</html>
