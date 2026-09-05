@@ -69,7 +69,7 @@
 
   <section id="gate" class="light" style="padding:0 22px 72px">
     <div class="gate">
-      <form id="shelf-form" action="/api/shelf-finder" method="post" enctype="multipart/form-data" style="display:flex;flex-direction:column;gap:22px">
+      <form id="shelf-form" style="display:flex;flex-direction:column;gap:22px">
         <h2>Where should we send your categories?</h2>
         <input type="hidden" name="source" value="shelf-finder">
         <div class="field">
@@ -97,7 +97,7 @@
       </form>
       <div id="shelf-done" hidden style="display:flex;flex-direction:column;gap:16px;text-align:center;padding:24px 0">
         <div style="font-family:var(--font-display);font-size:clamp(34px,5vw,48px);line-height:1;text-transform:uppercase;color:#fff">Check your inbox.</div>
-        <p style="margin:0;font-size:18px;line-height:1.6;color:rgba(255,255,255,.8)">Your categories are on the way.</p>
+        <p style="margin:0;font-size:18px;line-height:1.6;color:rgba(255,255,255,.8)">Your categories are on the way — usually within a couple of minutes.</p>
         <button class="btn btn-ghost" type="button" id="shelf-again" style="align-self:center;margin-top:8px">Run another book</button>
       </div>
     </div>
@@ -146,8 +146,9 @@
   </section>
 </main>
 
-<footer><div>CategoryPublishers.com</div></footer>
+<footer><div>CategoryPublishing.com</div></footer>
 
+<script src="js/shelf-config.js"></script>
 <script src="js/shelf-finder.js"></script>
 </body>
 </html>

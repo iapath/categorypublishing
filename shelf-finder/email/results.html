@@ -19,14 +19,14 @@
         </tr>
         <tr>
           <td style="padding:32px 32px 0;">
-            <p style="margin:0 0 16px;font-size:17px;line-height:27px;color:#2e2b28;">Hi {{first_name}},</p>
+            <p style="margin:0 0 16px;font-size:17px;line-height:27px;color:#2e2b28;">Hi {{ subscriber.first_name | default: "there" }},</p>
             <p style="margin:0 0 16px;font-size:17px;line-height:27px;color:#2e2b28;">We read your book and found three Amazon categories where historical data research shows #1 takes under 20 sales a day.</p>
             <p style="margin:0;font-size:17px;line-height:27px;color:#2e2b28;">Full category paths, ready to paste into KDP, are waiting on your results page.</p>
           </td>
         </tr>
         <tr>
           <td align="center" style="padding:28px 32px 0;">
-            <a href="{{results_url}}" style="display:inline-block;background:#e2006a;color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;padding:19px 44px;border-radius:2px;">See Them Now</a>
+            <a href="{{ subscriber.results_url }}" style="display:inline-block;background:#e2006a;color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;padding:19px 44px;border-radius:2px;">See Them Now</a>
             <p style="margin:14px 0 0;font-size:12px;line-height:19px;color:#9a9490;">Your link stays live for 30 days.</p>
           </td>
         </tr>
@@ -54,7 +54,7 @@
                 <td style="padding:20px 0 0;">
                   <p style="margin:0 0 4px;font-size:15px;line-height:24px;color:#2e2b28;">Chris Stanley</p>
                   <p style="margin:0 0 12px;font-size:13px;line-height:21px;color:#706a66;">Category Publishers</p>
-                  <p style="margin:0;font-size:14px;line-height:22px;color:#4a4542;">Categories are one of nine things a book needs. The rest are in the <a href="{{blueprint_url}}" style="color:#b5004f;font-weight:600;">Category Book Blueprint</a>.</p>
+                  <p style="margin:0;font-size:14px;line-height:22px;color:#4a4542;">Categories are one of nine things a book needs. The rest are in the <a href="https://categorypublishing.com/blueprint" style="color:#b5004f;font-weight:600;">Category Book Blueprint</a>.</p>
                 </td>
               </tr>
             </table>
@@ -62,8 +62,8 @@
         </tr>
         <tr>
           <td align="center" style="background:#f7f3f0;padding:18px 32px 22px;">
-            <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#706a66;">CategoryPublishers.com</div>
-            <div style="font-size:11px;color:#9a9490;padding-top:8px;">You asked for this one. <a href="{{unsubscribe_url}}" style="color:#706a66;">Unsubscribe</a></div>
+            <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#706a66;">CategoryPublishing.com</div>
+            <div style="font-size:11px;color:#9a9490;padding-top:8px;">You asked for this one. <a href="{{ unsubscribe_url }}" style="color:#706a66;">Unsubscribe</a></div>
           </td>
         </tr>
       </table>
