@@ -21,6 +21,7 @@ static HTML and this stays that way.
 | `blueprint.js` | The document's own editing, now saving to the open project instead of localStorage |
 | `image-slot.js` | The drop-an-image element, now uploading to Storage instead of localStorage |
 | `doc-page.js` | Pagination. Untouched |
+| `supabase/functions/blueprint-pdf/` | The edge function that renders and stores the PDF |
 
 Drop new images for the document itself into `assets/`.
 
@@ -33,10 +34,13 @@ safe. It creates:
 - `blueprint_projects` — one row per client blueprint, all answers in `fields`
 - `blueprint_snapshots` — a frozen copy each time you export
 - `blueprint_shares` — invite a client by email (for later)
-- `blueprint-assets` — a **private** storage bucket for the 16 image slots and exported PDFs
+- `blueprint-assets` — a **private** storage bucket for the 16 image slots
 
 It reuses Smart Publishing Studio's accounts and its `current_app_user_id()` /
 `is_app_admin()` helpers, so run SPS migration `060` first if it hasn't been.
+
+**1b. Run `sql/119_blueprint_exports_bucket.sql`** the same way. It adds the
+private `blueprint-exports` bucket that finished PDFs go into.
 
 **2. Keep the migration ledger straight.** Copy that same file into the
 `smartpublishingstudio` repo at `supabase/118_category_book_blueprint.sql` so
@@ -74,13 +78,54 @@ policy and this file is public.
 The client name you type when creating a blueprint fills the "Prepared for"
 line on all 30 pages, and the category fills page 01.
 
-### One thing that isn't automatic yet
+---
 
-Export saves the *answers* as a snapshot row and hands you a print dialog for
-the PDF. It does not yet put the PDF file itself in the bucket — rendering a
-PDF server-side needs a headless browser, which is a Supabase edge function
-rather than anything this static page can do. `blueprint_snapshots.pdf_path`
-is already there waiting for it.
+## The PDF export
+
+**Export PDF** freezes a snapshot, asks the `blueprint-pdf` edge function for a
+rendered file, stores it in `blueprint-exports`, and downloads it. Once a
+blueprint has been exported once, a **Download last PDF** button appears, which
+hands over the stored copy without re-rendering.
+
+Until a renderer is configured the button still works — it offers the browser's
+own print-to-PDF instead, which produces the same pages, just without filing a
+copy. Your answers snapshot either way.
+
+### Why it needs an outside service
+
+This document only lays out correctly in a real browser engine. Supabase edge
+functions run Deno and cannot run a browser, and the client-side renderers
+(html2canvas and friends) get it visibly wrong — measured here at 15 seconds
+for a single page, with the title block collapsing. So the function does the
+parts that must be trusted (checking who is asking, assembling the filled-in
+page, storing the result) and hands the rendering itself to a headless browser
+service, exactly the way `mockup-gen` calls MediaModifier.
+
+It fetches the live `/blueprint` page and injects the answers, so there is one
+copy of the design: edit the worksheet and the PDF follows.
+
+### Deploying it
+
+```bash
+cd blueprint
+supabase functions deploy blueprint-pdf
+supabase secrets set PDF_RENDER_PROVIDER=browserless PDF_RENDER_KEY=xxxxxxxx
+```
+
+Three providers are supported; pick one and set the two secrets:
+
+| `PDF_RENDER_PROVIDER` | Service | Notes |
+|---|---|---|
+| `browserless` (default) | browserless.io | Real Chrome, free tier to start. Set `PDF_RENDER_URL` if self-hosting |
+| `pdfshift` | pdfshift.io | Simple per-document pricing |
+| `docraptor` | docraptor.com | PrinceXML rather than Chrome, so check a proof page first |
+
+Optional: `BLUEPRINT_URL` if the worksheet ever moves off
+`https://categorypublishing.com/blueprint/`.
+
+The function only ever reads a blueprint **as the person asking** — the service
+key is used afterwards, for storing the file. So it cannot hand someone a PDF
+of a blueprint they could not already open.
 
 ### About the password
 

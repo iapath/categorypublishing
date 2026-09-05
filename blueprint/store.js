@@ -223,6 +223,38 @@
     return r.data;
   };
 
+  // Ask the edge function for a rendered PDF. Returns a signed download URL,
+  // or null when no renderer is configured — the caller falls back to print.
+  CBB.exportPdf = async function (snapshotId) {
+    if (!CBB.project) return null;
+    var sess = await CBB.sb.auth.getSession();
+    var token = sess.data && sess.data.session ? sess.data.session.access_token : null;
+    if (!token) throw new Error("Sign in again — your session expired.");
+    var res = await fetch(CFG.supabaseUrl + "/functions/v1/blueprint-pdf", {
+      method: "POST",
+      headers: { "content-type": "application/json", Authorization: "Bearer " + token },
+      body: JSON.stringify({ project_id: CBB.project.id, snapshot_id: snapshotId || null })
+    });
+    if (res.status === 404 || res.status === 503) return null;   // not set up yet
+    var out = await res.json().catch(function () { return {}; });
+    if (!res.ok) throw new Error(out.error || "The PDF didn't come back.");
+    return out.url || null;
+  };
+
+  // The newest stored PDF, so a returning client can download without waiting
+  // for a re-render.
+  CBB.latestExport = async function () {
+    if (!CBB.project) return null;
+    var r = await CBB.sb.from("blueprint_snapshots")
+      .select("id, pdf_path, created_at").eq("project_id", CBB.project.id)
+      .not("pdf_path", "is", null).order("created_at", { ascending: false }).limit(1);
+    if (r.error || !r.data || !r.data.length) return null;
+    var row = r.data[0];
+    var link = await CBB.sb.storage.from("blueprint-exports")
+      .createSignedUrl(row.pdf_path, 60 * 60, { download: true });
+    return link.data ? link.data.signedUrl : null;
+  };
+
   CBB.listSnapshots = async function () {
     var r = await CBB.sb.from("blueprint_snapshots")
       .select("id, label, created_at").eq("project_id", CBB.project.id)

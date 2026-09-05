@@ -215,18 +215,45 @@
 
     var exp = el("button", "cbb-btn ghost", "Export PDF");
     exp.onclick = async function () {
+      var restore = function (t) { exp.disabled = false; exp.textContent = t || "Export PDF"; };
       exp.disabled = true; exp.textContent = "Saving…";
       try {
-        await CBB.snapshot("Export " + new Date().toLocaleString());
-        exp.textContent = "Export PDF";
-        exp.disabled = false;
-        window.print();
+        var snap = await CBB.snapshot("Export " + new Date().toLocaleString());
+        exp.textContent = "Building PDF…";
+        var url = await CBB.exportPdf(snap && snap.id);
+        if (url) {
+          download(url);
+          restore("Exported ✓");
+          setTimeout(function () { restore(); }, 2500);
+          return;
+        }
+        // No renderer configured: the browser's own print output is identical,
+        // it just cannot be filed away automatically.
+        restore();
+        if (confirm("The PDF service isn't set up yet, so this can't be saved to " +
+                    "your library automatically.\n\nYour answers are saved either way. " +
+                    "Print to PDF now instead?")) window.print();
       } catch (e) {
-        exp.disabled = false; exp.textContent = "Export PDF";
-        alert(CBB.friendly(e));
+        restore();
+        alert(e.message || CBB.friendly(e));
       }
     };
     bar.appendChild(exp);
+
+    // Only shown once a blueprint has a stored PDF to hand over.
+    var dl = el("button", "cbb-btn ghost", "Download last PDF");
+    dl.style.display = "none";
+    dl.onclick = async function () {
+      dl.disabled = true;
+      try {
+        var url = await CBB.latestExport();
+        if (url) download(url); else alert("No PDF has been exported yet.");
+      } catch (e) { alert(CBB.friendly(e)); }
+      dl.disabled = false;
+    };
+    bar.appendChild(dl);
+    CBB.latestExport().then(function (u) { if (u) dl.style.display = ""; })
+                      .catch(function () {});
 
     var back = el("button", "cbb-btn ghost", "All blueprints");
     back.onclick = async function () {
@@ -237,6 +264,12 @@
     bar.appendChild(back);
 
     document.body.appendChild(bar);
+  }
+
+  function download(url) {
+    var a = document.createElement("a");
+    a.href = url; a.rel = "noopener"; a.target = "_blank";
+    document.body.appendChild(a); a.click(); a.remove();
   }
 
   function esc(s) { var d = document.createElement("div"); d.textContent = String(s || ""); return d.innerHTML; }
