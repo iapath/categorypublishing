@@ -1,26 +1,39 @@
 /* Category Book Blueprint — editing, autosave and pagination.
-   Every element with data-k is editable and persists to localStorage.
+   Every element with data-k is editable and persists to the open blueprint.
    Elements with data-chk toggle between an empty and a checked box.
    Fields sharing a data-k stay in sync (e.g. the client name). */
 (function () {
-  var KEY = 'cbb.packet.v1';
   var nodes = function () { return Array.prototype.slice.call(document.querySelectorAll('[data-k]')); };
-  var saved = {};
-  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
 
-  nodes().forEach(function (n) {
-    var k = n.getAttribute('data-k');
-    if (typeof saved[k] === 'string') n.innerHTML = saved[k];
-  });
+  /* The shell fills the document once a blueprint is open. Until then the page
+     shows its own blank template, so nothing is lost if sign-in is cancelled. */
+  var blank = null;
+  window.CBBDoc = {
+    hydrate: function (map) {
+      if (blank === null) {
+        blank = {};
+        nodes().forEach(function (n) { blank[n.getAttribute('data-k')] = n.innerHTML; });
+      }
+      nodes().forEach(function (n) {
+        var k = n.getAttribute('data-k');
+        n.innerHTML = typeof map[k] === 'string' ? map[k] : blank[k];
+      });
+    },
+    collect: collect
+  };
 
-  var t;
-  function save() {
+  function collect() {
     var out = {};
     nodes().forEach(function (n) {
       var v = n.innerHTML.trim();
       if (v) out[n.getAttribute('data-k')] = v;
     });
-    try { localStorage.setItem(KEY, JSON.stringify(out)); } catch (e) {}
+    return out;
+  }
+
+  var t;
+  function save() {
+    if (window.CBB && window.CBB.project) window.CBB.saveFields(collect());
   }
 
   document.addEventListener('input', function (e) {

@@ -1,0 +1,75 @@
+/* shell.css — the app around the worksheet: sign-in, project picker, toolbar.
+   The worksheet itself is untouched, and everything here disappears in print. */
+.cbb-shell, .cbb-shell * { box-sizing: border-box; font-family: Montserrat, system-ui, sans-serif; }
+/* The document styles bare tags, so anything the shell renders as one says its own colour. */
+
+.cbb-veil {
+  position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center;
+  justify-content: center; padding: 24px; background: #0D0B2A; overflow: auto;
+}
+.cbb-card {
+  width: 100%; max-width: 440px; background: #16123C; color: #fff;
+  border: 1px solid rgba(184,180,217,.22); border-radius: 12px; padding: 34px 30px 30px;
+}
+.cbb-card.wide { max-width: 720px; }
+.cbb-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .26em; color: #FF2E85; margin-bottom: 12px; }
+.cbb-h { font-size: 27px; font-weight: 800; letter-spacing: -.02em; line-height: 1.15;
+         margin: 0 0 8px; color: #fff; }
+.cbb-sub { font-size: 15px; font-weight: 500; line-height: 1.55; color: #B8B4D9; margin: 0 0 22px; }
+.cbb-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: .12em; color: #8C88B0; margin: 0 0 6px; }
+.cbb-input {
+  width: 100%; padding: 13px 14px; margin-bottom: 14px; font-size: 15px; color: #fff;
+  background: #0D0B2A; border: 1px solid rgba(184,180,217,.3); border-radius: 8px;
+}
+.cbb-input:focus { outline: none; border-color: #E91E75; }
+.cbb-btn {
+  display: inline-block; width: 100%; padding: 14px 20px; font-size: 15px; font-weight: 700;
+  color: #fff; background: #E91E75; border: 0; border-radius: 999px; cursor: pointer; text-align: center;
+}
+.cbb-btn:hover { background: #ff3b8a; }
+.cbb-btn:disabled { opacity: .55; cursor: default; }
+.cbb-btn.ghost { background: transparent; border: 1px solid rgba(184,180,217,.35); color: #C9C5E4; width: auto; padding: 10px 18px; font-size: 13px; }
+.cbb-btn.ghost:hover { border-color: #E91E75; color: #fff; background: transparent; }
+.cbb-link { background: none; border: 0; color: #FF2E85; font-size: 13px; font-weight: 600; cursor: pointer; padding: 8px 0; }
+.cbb-err { font-size: 14px; font-weight: 600; color: #FF7BA8; margin: 0 0 14px; min-height: 0; }
+.cbb-note { font-size: 13px; color: #8C88B0; margin-top: 16px; line-height: 1.5; }
+
+/* Project list */
+.cbb-rows { margin: 4px 0 20px; max-height: 46vh; overflow: auto; }
+.cbb-row {
+  display: flex; align-items: center; gap: 14px; width: 100%; text-align: left;
+  padding: 14px 16px; margin-bottom: 8px; background: #0D0B2A; color: #fff; cursor: pointer;
+  border: 1px solid rgba(184,180,217,.2); border-radius: 8px;
+}
+.cbb-row:hover { border-color: #E91E75; }
+.cbb-row-main { flex: 1; min-width: 0; }
+.cbb-row-name { font-size: 16px; font-weight: 700; }
+.cbb-row-meta { font-size: 13px; color: #8C88B0; margin-top: 2px; }
+.cbb-row-del { background: none; border: 0; color: #6E6A88; font-size: 12px; font-weight: 700; cursor: pointer; padding: 6px; }
+.cbb-row-del:hover { color: #FF7BA8; }
+.cbb-empty { font-size: 14px; color: #8C88B0; padding: 18px 0 22px; }
+
+/* Toolbar over the document */
+.cbb-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 8000; display: flex; align-items: center;
+  gap: 14px; padding: 10px 18px; background: rgba(13,11,42,.96); color: #fff;
+  border-bottom: 1px solid rgba(184,180,217,.2); backdrop-filter: blur(6px);
+}
+.cbb-bar-name { font-size: 14px; font-weight: 700; }
+.cbb-bar-cat { font-size: 13px; color: #8C88B0; }
+.cbb-bar-spacer { flex: 1; }
+.cbb-status { font-size: 12px; font-weight: 700; letter-spacing: .1em; color: #8C88B0; }
+.cbb-status[data-s="saving"] { color: #C9C5E4; }
+.cbb-status[data-s="saved"]  { color: #4ED18A; }
+.cbb-status[data-s="error"]  { color: #FF7BA8; }
+body.cbb-live { padding-top: 52px; }
+
+@media (max-width: 640px) {
+  .cbb-bar { flex-wrap: wrap; gap: 8px 12px; }
+  .cbb-bar-spacer { display: none; }
+  body.cbb-live { padding-top: 92px; }
+}
+@media print {
+  .cbb-bar, .cbb-veil { display: none !important; }
+  body.cbb-live { padding-top: 0 !important; }
+}

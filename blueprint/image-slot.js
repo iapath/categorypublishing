@@ -1,18 +1,9 @@
-/* <image-slot> — drag-and-drop image placeholder for the standalone packet.
-   Drop an image on it (or click to browse). The image is stored in
-   localStorage against the slot's id, so it survives a reload.
+/* <image-slot> — drag-and-drop image placeholder.
+   Drop an image on it (or click to browse). The file uploads to the open
+   blueprint's private storage folder and the slot paints it back from a
+   signed URL, so it survives a reload on any machine.
    Attributes: id (required), shape, radius, fit (cover|contain), placeholder. */
 (function () {
-  var KEY = 'cbb.slots.v1';
-
-  function read() {
-    try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; }
-  }
-  function write(map) {
-    try { localStorage.setItem(KEY, JSON.stringify(map)); } catch (e) {
-      alert('This image is too large to store in the browser. Try a smaller file.');
-    }
-  }
 
   var CSS = [
     ':host{display:block;width:100%;height:100%;position:relative}',
@@ -84,7 +75,7 @@
         if (f) self._load(f);
       });
 
-      var stored = read()[this.id];
+      var stored = window.CBB && window.CBB.imageUrlFor ? window.CBB.imageUrlFor(this.id) : null;
       if (stored) this._show(stored);
       else if (this.getAttribute('src')) this._show(this.getAttribute('src'), true);
     }
@@ -92,13 +83,36 @@
     _load(file) {
       if (!/^image\//.test(file.type)) return;
       var self = this;
+      // Each drop gets a ticket. A slower local preview must never repaint over
+      // the stored copy, and an older drop must never win over a newer one.
+      var ticket = (this._ticket = (this._ticket || 0) + 1);
+
       var fr = new FileReader();
       fr.onload = function () {
-        var map = read();
-        if (self.id) { map[self.id] = fr.result; write(map); }
+        if (ticket !== self._ticket || self._settled === ticket) return;
         self._show(fr.result);
       };
       fr.readAsDataURL(file);
+
+      if (!self.id || !window.CBB || !window.CBB.project) return;
+      window.CBB.putImage(self.id, file).then(function (url) {
+        if (ticket !== self._ticket) return;
+        self._settled = ticket;
+        if (url) self._show(url);
+      }).catch(function (err) {
+        console.error('[blueprint] image upload', err);
+        alert("That image didn't save. Check your connection and drop it again.");
+      });
+    }
+
+    /* Called by the shell when a blueprint opens, so slots that connected
+       before there was a project still get their picture. */
+    hydrate(url) {
+      if (url) { this._show(url); return; }
+      var img = this._box && this._box.querySelector('img');
+      if (img) img.remove();
+      if (this._box) this._box.classList.remove('filled');
+      if (this._ph) this._ph.hidden = false;
     }
 
     _show(src, transient) {

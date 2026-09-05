@@ -10,17 +10,19 @@ static HTML and this stays that way.
 
 ---
 
-## Drop your files here
+## What's here
 
-| Put | Where | Notes |
-|---|---|---|
-| The worksheet HTML | `blueprint/index.html` | Rename `categorybookblueprint.html` to `index.html`. Don't edit it first — the wiring is added on top of it. |
-| Any images it needs | `blueprint/assets/` | Logos, diagrams, sample covers. Reference as `assets/<name>`. |
-| Fonts, if self-hosted | `blueprint/assets/fonts/` | Currently it pulls Montserrat + Bebas from Google Fonts, which is fine. |
+| File | Does |
+|---|---|
+| `index.html` | The worksheet, 30 pages, unchanged apart from four added `<script>`/`<link>` lines |
+| `config.js` | **The two keys you fill in.** Nothing works until you do |
+| `store.js` | Accounts, projects, saving, image upload, snapshots — everything that talks to Supabase |
+| `shell.js` / `shell.css` | Sign-in, the project picker, the toolbar. Hidden in print |
+| `blueprint.js` | The document's own editing, now saving to the open project instead of localStorage |
+| `image-slot.js` | The drop-an-image element, now uploading to Storage instead of localStorage |
+| `doc-page.js` | Pagination. Untouched |
 
-Nothing else needs to move. The SQL in `sql/` is run once by hand, not deployed.
-
----
+Drop new images for the document itself into `assets/`.
 
 ## Setup, in order
 
@@ -40,25 +42,45 @@ It reuses Smart Publishing Studio's accounts and its `current_app_user_id()` /
 `smartpublishingstudio` repo at `supabase/118_category_book_blueprint.sql` so
 the numbering stays continuous. It's the same database.
 
-**3. Set the two keys in Netlify** (Site settings → Environment variables), same
-values SPS uses:
+**3. Fill in `config.js`** with the same two values SPS uses, then commit it:
 
-```
-VITE_SUPABASE_URL
-VITE_SUPABASE_PUBLISHABLE_KEY
+```js
+window.CBB_CONFIG = {
+  supabaseUrl: "https://xxxxxxxx.supabase.co",
+  supabasePublishableKey: "eyJhbGci..."
+};
 ```
 
-These are the publishable/anon keys — safe in the browser. RLS is what protects
-the data, which is why step 1 matters. **Never put a service-role key here.**
+They go in the file rather than Netlify environment variables because this site
+has no build step — nothing exists to substitute them in. That's fine: the
+publishable key is designed to be seen by the browser, and SPS ships the same
+key in its own bundle. RLS is what actually protects the data, which is why
+step 1 matters. **Never put a service_role key here** — it bypasses every
+policy and this file is public.
 
 ---
 
 ## How you'll use it
 
 1. Go to `/blueprint`, sign in with your email and password.
-2. Land on a project list — **New blueprint**, or pick an existing client.
-3. Fill it in. Every field saves as you type; no Save button to forget.
-4. **Export** writes a PDF, stores it, and freezes a snapshot you can return to.
+2. Land on a project list — **Start a blueprint**, or pick an existing client.
+3. Fill it in. Every field saves about half a second after you stop typing, so
+   there's no Save button to forget. The toolbar says SAVING… then SAVED, and
+   NOT SAVED in red if a write ever fails.
+4. Drop images straight onto the 16 slots — they upload to the private bucket.
+5. **Export PDF** freezes a snapshot, then opens your browser's print dialog.
+   Choose "Save as PDF". The page's own print styles do the layout.
+
+The client name you type when creating a blueprint fills the "Prepared for"
+line on all 30 pages, and the category fills page 01.
+
+### One thing that isn't automatic yet
+
+Export saves the *answers* as a snapshot row and hands you a print dialog for
+the PDF. It does not yet put the PDF file itself in the bucket — rendering a
+PDF server-side needs a headless browser, which is a Supabase edge function
+rather than anything this static page can do. `blueprint_snapshots.pdf_path`
+is already there waiting for it.
 
 ### About the password
 
