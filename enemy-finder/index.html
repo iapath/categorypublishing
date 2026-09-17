@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Enemy Finder — Name what your book is fighting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="description" content="Free tool. Answer one question at a time and watch the names for your book's enemy appear, sharpen and settle. Star the ones that hit and they stay for good.">
+<link rel="canonical" href="https://categorypublishing.com/enemy-finder/">
+<link rel="icon" type="image/svg+xml" href="/assets/category-publishing-icon.svg">
+<meta name="theme-color" content="#060a2c">
+<meta property="og:site_name" content="Category Publishing">
+<meta property="og:title" content="The Enemy Finder — Name what your book is fighting">
+<meta property="og:description" content="One question at a time. The names for your enemy appear as you answer. Star the ones that hit and they never leave.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://categorypublishing.com/enemy-finder/">
+<meta property="og:image" content="https://categorypublishing.com/assets/category-publishing-lockup.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Enemy Finder — Name what your book is fighting">
+<meta name="twitter:description" content="One question at a time. The names for your enemy appear as you answer. Star the ones that hit and they never leave.">
+<meta name="twitter:image" content="https://categorypublishing.com/assets/category-publishing-lockup.png">
+<link rel="stylesheet" href="css/enemy-finder.css">
+</head>
+<body class="dark">
+
+<main>
+
+  <!-- ── Hero ────────────────────────────────────────────────────────────── -->
+  <section class="wrap hero">
+    <div class="eyebrow">Category Publishing</div>
+    <h1>Every book worth<br>reading is <span class="accent">against</span><br>something.</h1>
+    <p class="lede">Answer one question at a time. Names for what your book is fighting appear as you go, sharpen as you dig, and the ones you star stay for good.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:4px">
+      <a class="btn" href="#start">Find My Enemy</a>
+      <span style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)">Free &middot; No sign-up &middot; Takes about five minutes</span>
+    </div>
+  </section>
+
+  <!-- ── Pick up where you left off ──────────────────────────────────────── -->
+  <section class="wrap" style="padding-top:28px">
+    <div class="strip" id="resume" hidden>
+      <div class="strip-facts"><span style="max-width:40em">You left a run half finished. Want to pick it back up?</span></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-sm" type="button" id="resume-go">Pick it back up</button>
+        <button class="btn btn-ghost" type="button" id="resume-new">Start fresh</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── The three blanks ────────────────────────────────────────────────── -->
+  <section class="wrap" id="start" style="padding-top:34px;padding-bottom:20px;scroll-margin-top:22px">
+    <div class="setup" id="setup">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <h2>Three blanks, then we talk.</h2>
+        <p class="help" style="font-size:15px">There are no wrong answers here. Rough is fine. The questions afterwards are where the real work happens.</p>
+      </div>
+
+      <form id="setup-form" style="display:flex;flex-direction:column;gap:24px">
+        <label class="field">
+          <span class="label">Person</span>
+          <textarea name="person" rows="1" required placeholder="A first-time author with a consulting business"></textarea>
+          <p class="help">Who you're writing to. One kind of person, not everybody.</p>
+        </label>
+
+        <label class="field">
+          <span class="label">Problem</span>
+          <textarea name="problem" rows="1" required placeholder="Nobody takes them seriously enough to pay their real rate"></textarea>
+          <p class="help">The problem they have. The one they'd say out loud, in their words.</p>
+        </label>
+
+        <label class="field">
+          <span class="label">POV <span class="opt">&middot; optional</span></span>
+          <textarea name="pov" rows="1" placeholder="Authority isn't built by saying more. It's built by naming what everyone else is dancing around."></textarea>
+          <p class="help">Your unique take on how to fix it. Leave it blank if you're still working it out.</p>
+        </label>
+
+        <p class="err" id="setup-err" hidden></p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+          <button class="btn" type="submit">Start digging</button>
+          <span style="font-size:12px;color:rgba(255,255,255,.45)">Nothing is saved to an account. It stays in this browser.</span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ── The tool ────────────────────────────────────────────────────────── -->
+  <section class="wrap" id="tool" hidden style="padding-bottom:20px;display:flex;flex-direction:column;gap:30px">
+
+    <div class="strip" id="strip">
+      <div class="strip-facts">
+        <span><b>Person</b><span id="strip-person"></span></span>
+        <span><b>Problem</b><span id="strip-problem"></span></span>
+        <span><b>POV</b><span id="strip-pov"></span></span>
+      </div>
+      <button class="btn btn-ghost" type="button" id="strip-edit">Edit</button>
+    </div>
+
+    <div id="ask" class="ask"></div>
+
+    <div class="board" id="board">
+      <div class="col">
+        <div class="col-head">
+          <h3>The normal way</h3>
+          <span class="sub" id="count-normal"></span>
+        </div>
+        <div class="col-list" id="list-normal"></div>
+        <div class="empty">Names for the conventional wisdom you're fighting land here once you answer.</div>
+      </div>
+      <div class="col">
+        <div class="col-head">
+          <h3>What gets them</h3>
+          <span class="sub" id="count-consequence"></span>
+        </div>
+        <div class="col-list" id="list-consequence"></div>
+        <div class="empty">Names for what happens to your person if this never gets solved land here.</div>
+      </div>
+    </div>
+
+    <div id="actions" style="display:flex;flex-wrap:wrap;gap:14px;align-items:center"></div>
+
+    <div class="sharp-wrap" id="sharpen" hidden style="display:flex;flex-direction:column;gap:18px">
+      <h2 style="font-size:clamp(30px,4.4vw,44px)">Held up to the light.</h2>
+      <div id="sharpen-list" style="display:flex;flex-direction:column;gap:18px"></div>
+      <p class="body-dark" id="sharpen-closing" hidden style="font-weight:600"></p>
+    </div>
+
+    <div class="keep" id="keep" hidden>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="eyebrow">What you're keeping</div>
+        <h2 style="font-size:clamp(28px,4vw,40px)">Your enemy, named.</h2>
+      </div>
+      <ul class="keep-list" id="keep-list"></ul>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;padding-top:4px">
+        <button class="btn btn-sm" type="button" id="keep-copy">Copy all of this</button>
+        <button class="btn btn-ghost" type="button" id="keep-again">Start over</button>
+      </div>
+      <p class="fine" style="margin:0">Say the one you starred out loud. If it makes you a little mad, you've found it.</p>
+    </div>
+
+  </section>
+
+  <!-- ── Why ─────────────────────────────────────────────────────────────── -->
+  <section class="narrow" style="padding-top:64px;padding-bottom:56px;display:flex;flex-direction:column;gap:22px">
+    <h2 style="font-size:clamp(34px,5.2vw,54px)">A book without an enemy is just information.</h2>
+    <p class="body-dark">Readers don't rally around a topic. They rally against something. The diet everybody's still on. The advice their boss keeps repeating. The thing quietly eating their business while they follow the rules.</p>
+    <p class="body-dark">Name that, and your book stops being one more title in a crowded category and starts being the one that finally said it.</p>
+  </section>
+
+  <div class="band"><p>The questions matter more<br>than the lists.</p></div>
+
+  <section class="light" style="padding:64px 0 72px">
+    <div style="max-width:1000px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;gap:40px">
+      <h2 style="font-size:clamp(32px,4.6vw,46px)">How it works</h2>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h3>Fill in three blanks</h3><p>Who you're writing to, what they're stuck on, and your take on fixing it. Rough is fine.</p></div>
+        <div class="step"><div class="n">2</div><h3>Answer one question at a time</h3><p>Never two. Each answer reworks the board: weak names drop off, sharper ones arrive.</p></div>
+        <div class="step"><div class="n">3</div><h3>Star the ones that hit</h3><p>A starred name is locked. It never gets dropped, reworded or tidied up. Everything else keeps moving.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="narrow" style="padding-top:64px;padding-bottom:24px;display:flex;flex-direction:column;gap:22px">
+    <div class="eyebrow">Two lists, two jobs</div>
+    <h2 style="font-size:clamp(30px,4.4vw,44px)">The normal way,<br>and what gets them.</h2>
+    <p class="body-dark"><strong style="color:#fff">The normal way</strong> is the conventional wisdom you're fighting. What everyone in your world tells your reader to do, that quietly doesn't work.</p>
+    <p class="body-dark"><strong style="color:#fff">What gets them</strong> is the consequence lurking behind it. What happens to your person if they never solve this, that they can't see coming yet.</p>
+    <p class="body-dark">You need both. One gives your book something to argue with. The other gives your reader a reason to keep turning pages.</p>
+  </section>
+
+  <section class="narrow" style="padding-top:48px;padding-bottom:64px">
+    <div style="border-top:1px solid rgba(255,255,255,.16);padding-top:36px;display:flex;flex-direction:column;gap:18px">
+      <div style="font-family:var(--font-display);font-size:clamp(26px,3.6vw,34px);text-transform:uppercase;letter-spacing:.02em">Who built it</div>
+      <p class="body-dark" style="color:rgba(255,255,255,.82)">I'm Chris Stanley. I've published 31 books and hit 21 bestseller lists.</p>
+      <p class="body-dark" style="color:rgba(255,255,255,.82)">Finding the enemy is the first thing I do with a client, before a single chapter gets outlined. This is that conversation, and now it's free.</p>
+      <p class="fine">Already know your enemy and want help building the book around it? <a href="/coaching">See how I work with authors</a>.</p>
+    </div>
+  </section>
+
+  <section class="narrow" style="padding-top:12px;padding-bottom:96px;display:flex;flex-direction:column;align-items:center;gap:30px;text-align:center">
+    <h2 style="font-size:clamp(40px,7vw,72px)">Stop writing<br>about a topic.</h2>
+    <a class="btn" href="#start">Find My Enemy</a>
+  </section>
+
+</main>
+
+<footer><div>CategoryPublishing.com</div></footer>
+
+<script src="js/enemy-config.js"></script>
+<script src="js/enemy-finder.js"></script>
+</body>
+</html>
