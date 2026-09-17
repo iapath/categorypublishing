@@ -72,30 +72,14 @@ run it again.
 4. If it isn't, click **Add new secret**, name it exactly `ANTHROPIC_API_KEY`,
    paste the key in the value box, and click **Save**.
 
-### 4. Point the page at it (2 minutes)
+### 4. Point the page at it — already done
 
-1. In Supabase, click the **gear icon** (Project Settings) at the bottom left,
-   then **API**.
-2. You'll see two things you need:
-   - **Project URL** — looks like `https://abcdefgh.supabase.co`
-   - **anon public** key — a very long string starting with `eyJ`
-3. Open `enemy-finder/js/enemy-config.js` in this repo.
-4. Paste the Project URL between the quotes after `supabaseUrl:`
-5. Paste the anon public key between the quotes after `supabaseAnonKey:`
-6. Save the file.
+`js/enemy-config.js` is already filled in with the same publishable pair
+Flywheel Builder ships to every visitor. Nothing to do here.
 
-It should end up looking like this:
-
-```js
-window.ENEMY_CONFIG = {
-  supabaseUrl: "https://abcdefgh.supabase.co",
-  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  coachingUrl: "/coaching"
-};
-```
-
-> The anon key is **meant** to sit in the browser — that's what it's for. Just
-> never paste the one labelled `service_role` here.
+Those two values are the **anon / publishable** credentials. They are meant to
+sit in the browser, and Row Level Security is what actually protects the data.
+The one thing never to paste there is the key labelled `service_role`.
 
 ### 5. Push it live (1 minute)
 
