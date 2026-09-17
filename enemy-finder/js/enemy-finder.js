@@ -530,20 +530,46 @@
   }
 
   // ── Wire ──────────────────────────────────────────────────────────────────
+  // Both the apikey header AND a bearer token. A function deployed from the
+  // dashboard has its JWT check switched on by default, and the gateway turns
+  // away anything without an Authorization header before our own code ever
+  // runs. The publishable key is itself a valid token, so sending it as the
+  // bearer works whether that check is on or off.
   function post(payload) {
     if (!FN) return Promise.reject(new Error("The tool isn't connected yet. (Admin: fill in js/enemy-config.js.)"));
+    var key = CFG.supabaseAnonKey || "";
     return fetch(FN, {
       method: "POST",
-      headers: { "content-type": "application/json", apikey: CFG.supabaseAnonKey || "" },
+      headers: {
+        "content-type": "application/json",
+        apikey: key,
+        Authorization: "Bearer " + key
+      },
       body: JSON.stringify(payload)
     }).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (b) {
-        if (!r.ok) throw new Error(b.error || "Something went wrong. Try that again.");
+        if (!r.ok) throw new Error(reason(r.status, b));
         return b;
       });
     }, function () {
       throw new Error("Couldn't reach the tool. Check your connection and try again.");
     });
+  }
+
+  // Anything our own code returns carries "error" and is already written for
+  // the author. Anything else comes from the gateway in front of it, and a bare
+  // "something went wrong" there just hides which of two setup steps is missing.
+  function reason(status, body) {
+    if (body && body.error) return body.error;
+    var detail = (body && (body.message || body.msg || body.hint)) || "";
+    console.error("[enemy-finder] HTTP " + status, body);
+    if (status === 404) return "The idea engine isn't switched on yet. (Admin: deploy enemy-finder.)";
+    if (status === 401 || status === 403) {
+      return "The idea engine turned us away at the door. (Admin: switch off the JWT check on enemy-finder.)";
+    }
+    if (status === 429) return "That's a lot of digging in one hour. Come back a little later.";
+    if (status >= 500) return "The idea engine hit a snag. Try that again in a moment.";
+    return "Something went wrong" + (detail ? " (" + detail + ")" : " (" + status + ")") + ". Try that again.";
   }
 
   // ── Storage ───────────────────────────────────────────────────────────────
