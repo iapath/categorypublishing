@@ -280,7 +280,7 @@
 <script>
 // Add the two Stripe Payment Links here. The split link must collect exactly
 // two $500 payments, 30 days apart; this page does not create a billing schedule.
-const CHECKOUT_LINKS = { full: '', split: '' };
+const CHECKOUT_LINKS = { full: 'https://buy.stripe.com/28E8wPd7NbL3cP617d3cc0d', split: 'https://buy.stripe.com/00waEXc3J02lg1i6rx3cc0f' };
 document.querySelectorAll('[data-checkout]').forEach(button => {
   const link = CHECKOUT_LINKS[button.dataset.checkout];
   if (!link) return;
